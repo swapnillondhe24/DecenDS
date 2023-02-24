@@ -42,13 +42,14 @@ class REST_WEB3():
         return ret
 
     def getAllFiles(self):
+        import json
         headers = {
             'accept': 'application/vnd.ipld.car',
             'Authorization': 'Bearer ' + self.bearer,
         }
 
         response = requests.get(self.endpoint+"/user/uploads", headers=headers)
-        return response.json(indent=4)
+        return json.dumps(response.json(), indent=4)
 
     def getCAR(self,cid):
         
@@ -73,13 +74,13 @@ class REST_WEB3():
         return response.json()
     
     
-    def delete_file_from_ipfs(self,cid):
-        headers = {
-            'Authorization': 'Bearer ' + self.bearer,
-        }
+    # def delete_file_from_ipfs(self,cid):
+    #     headers = {
+    #         'Authorization': 'Bearer ' + self.bearer,
+    #     }
         
-        response = requests.delete(self.endpoint+"/ipfs/"+cid)
-        return response
+    #     response = requests.delete(self.endpoint+"/ipfs/"+cid)
+    #     return response
     
     
     def writeCar(self,filename,content):
@@ -90,11 +91,5 @@ class REST_WEB3():
         
 if __name__ == '__main__':
     rest = REST_WEB3()
-    # c = rest.getAllFiles()
-    # print(c)
-    c = rest.delete_file_from_ipfs("bafkreibywt3pdfcuzlvoxfudjqmi5lvl67jvxqpcvjtrj264xcakpmzcie")
+    c = rest.getAllFiles()
     print(c)
-    if c.ok:
-        print("deleted")
-    else:
-        print("failed to delete")
