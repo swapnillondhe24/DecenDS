@@ -14,20 +14,21 @@ class REST_WEB3():
         self.endpoint = endpoint
         self.bearer = BEARER
 
-    def addFileToIPFS(self, file="D:/logo.png"):
+    def addFileToIPFS(self, file="./Copywright_Reference_Document.pdf"):
+        import urllib
+        file_name = os.path.basename(file)
+        encoded_name =  urllib.parse.quote(file_name)
+        
         headers = {
             'accept': 'application/json',
             'Authorization': 'Bearer ' + self.bearer,
+            "X-NAME":encoded_name,
         }
 
         files = {'file': ('logo.png', open(file, 'rb'), 'image/png')}
 
         response = requests.post(self.endpoint+"/upload", headers=headers, files=files)
         return response.json()
-        # ret = {'cid': 'bafkreigfqz72rjb5smbr22hns5aynts7c26feavqviqbazq6d6gphsamca',
-            #    'carCid': 'bagbaieraeu3iuppk2gnjkiopxp45lqzidecs676w6yjgyzujbmetzvrfhfqa'}
-
-        # return ret
 
     def getFileStatus(self, cid):
         headers = {
@@ -50,25 +51,50 @@ class REST_WEB3():
         return response.json(indent=4)
 
     def getCAR(self,cid):
+        
         headers = {
             'accept': 'image/png',
             
         }
-        url = self.endpoint+"/car/"+cid
-        print(url)
+        url = self.endpoint+"/car/"+cid+"?archive=true"
+        # print(url)
         response = requests.get(url, headers= headers)
         
-        json{
-            "name":"logo.png",
-            "blob":response.content
-        },200
-        
-        # print(response.text)
         return response.content
+    
+    def getUserUploads(self,cid):
+        headers = {
+            'accept': 'application/json', 
+            'Authorization': 'Bearer ' + self.bearer,
+        }
+        response = requests.get(self.endpoint+"/user/uploads/"+cid, headers= headers)
+        # https://api.web3.storage/user/uploads/{cid}
+        
+        return response.json()
+    
+    
+    def delete_file_from_ipfs(self,cid):
+        headers = {
+            'Authorization': 'Bearer ' + self.bearer,
+        }
+        
+        response = requests.delete(self.endpoint+"/ipfs/"+cid)
+        return response
+    
+    
+    def writeCar(self,filename,content):
+        with open(filename, "wb") as f:
+            f.write(content)
+        
+        
         
 if __name__ == '__main__':
     rest = REST_WEB3()
-    c = rest.getAllFiles()
+    # c = rest.getAllFiles()
+    # print(c)
+    c = rest.delete_file_from_ipfs("bafkreibywt3pdfcuzlvoxfudjqmi5lvl67jvxqpcvjtrj264xcakpmzcie")
     print(c)
-    # c = "bagbaieraeu3iuppk2gnjkiopxp45lqzidecs676w6yjgyzujbmetzvrfhfqa"
-    # print(rest.getCAR(c))
+    if c.ok:
+        print("deleted")
+    else:
+        print("failed to delete")
