@@ -47,7 +47,7 @@ class REST_WEB3():
         }
 
         response = requests.get(self.endpoint+"/user/uploads", headers=headers)
-        return response.json()
+        return response.json(indent=4)
 
     def getCAR(self,cid):
         headers = {
@@ -58,12 +58,17 @@ class REST_WEB3():
         print(url)
         response = requests.get(url, headers= headers)
         
+        json{
+            "name":"logo.png",
+            "blob":response.content
+        },200
+        
         # print(response.text)
         return response.content
         
 if __name__ == '__main__':
     rest = REST_WEB3()
-    c = rest.addFileToIPFS("C:/Users/swapn/Downloads/student_scores.csv")
+    c = rest.getAllFiles()
     print(c)
     # c = "bagbaieraeu3iuppk2gnjkiopxp45lqzidecs676w6yjgyzujbmetzvrfhfqa"
     # print(rest.getCAR(c))
