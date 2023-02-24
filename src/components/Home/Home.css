@@ -1,0 +1,75 @@
+.Home {
+  background-image: url("../../images/bg2.png");
+}
+
+.jumbo {
+  position: relative;
+}
+
+.jumbo .btn {
+  position: absolute;
+  top: 70%;
+  left: 15%;
+  width: 20%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  background-color: #61b8d8;
+  border-radius: 30px;
+}
+
+.features {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.features-card {
+  height: 5rem;
+  background-color: aliceblue;
+  border-radius: 40px;
+  padding: 1.5rem;
+  font-weight: 400;
+  font-size: 18px;
+  color: #541b81;
+  font-family: "PT Sans Caption", sans-serif;
+}
+
+.features-head {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 1rem;
+  font-family: "PT Sans Caption", sans-serif;
+}
+
+.About {
+  margin-top: 1rem;
+  background-color: #789ff0;
+  margin-bottom: 0;
+  margin-right: 1rem;
+  margin-left: 1rem;
+}
+
+.about-body {
+  font-size: 16px;
+  color: #fff;
+  font-weight: 400;
+  text-align: left;
+}
+
+.author {
+  position: relative;
+}
+
+.author-cards {
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}

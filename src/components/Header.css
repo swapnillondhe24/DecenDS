@@ -1,0 +1,27 @@
+.logo-img {
+  height: 55px;
+  margin-top: 0;
+}
+
+.nav-option {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #fff8f8;
+  margin: 0.5rem;
+}
+
+.nav-btn {
+  background-color: #541b81;
+  border-radius: 30px;
+  color: #fff8f8;
+  text-decoration: none;
+  font-weight: 400;
+  width: 5rem;
+  height: 2.5rem;
+  align-items: center;
+  padding-top: 0.5rem;
+}
+
+.regLink {
+  text-decoration: none;
+}

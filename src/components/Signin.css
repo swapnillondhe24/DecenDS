@@ -1,0 +1,80 @@
+.signin {
+  background-image: url("../images/login-bg.png");
+  color: #fff;
+  /* margin-bottom: 3rem; */
+}
+
+.logo-img {
+  margin-top: 2rem;
+}
+
+.login-box {
+  margin-top: 3rem;
+  background-color: #181616;
+  margin-left: 20%;
+  margin-right: 40%;
+  width: 60%;
+  border-radius: 36px;
+  padding: 2rem;
+  margin-bottom: 1rem;
+}
+
+.form-head {
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: left;
+  margin-left: 3rem;
+  margin-top: 3rem;
+  /* align-items: flex-start; */
+}
+
+.form-grp {
+  margin-top: 2rem;
+  align-items: flex-start;
+  text-align: left;
+  margin-left: 3rem;
+}
+
+.check {
+  margin-top: 2rem;
+
+  text-align: left;
+  margin-left: 3rem;
+  margin-bottom: 0;
+}
+
+.form-ip {
+  width: 90%;
+  background: #181616;
+  border: 2px solid #d9d9d9;
+  border-radius: 10px;
+  color: #fff;
+  height: 50px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.form-label {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.form-btn {
+  margin-top: 3rem;
+  background: #541b81;
+  border-radius: 30px;
+  height: 55px;
+  width: 84%;
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.Forgot {
+  font-weight: 600;
+}
+
+.already {
+  font-weight: 600;
+  padding-bottom: 2rem;
+}
