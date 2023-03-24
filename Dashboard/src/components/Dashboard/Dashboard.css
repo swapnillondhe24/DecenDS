@@ -1,0 +1,61 @@
+.dashboard {
+  background-image: url("../../images/bg2.png");
+}
+
+.dashboard-bar {
+  margin: 0.5rem;
+  background: #541b81;
+  border-radius: 10px;
+  height: 50px;
+  font-weight: 600;
+  font-size: 16spx;
+  line-height: 29px;
+  display: flex;
+  align-items: center;
+  padding-left: 50px;
+  color: #f5f5f5;
+}
+
+.dashcards {
+  border: 5px solid #f5f5f5;
+  border-radius: 10px;
+  /* display: flex; */
+  align-items: center;
+  text-align: center;
+  height: 200px;
+  color: #ffffff;
+  padding-top: 1rem;
+}
+
+.dashboard-cards {
+  margin-top: 3rem;
+  padding: 2rem;
+}
+
+.count {
+  font-family: "Cairo";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 50px;
+}
+
+.dashcard-name {
+}
+
+.ducards {
+  background: #181616;
+  border-radius: 10px;
+  height: 150px;
+  padding-top: 1.5rem;
+}
+
+.downup {
+  padding: 6rem;
+}
+
+.ducard-name {
+  color: #d9d9d9;
+  font-weight: 600;
+  font-size: 18px;
+  margin-top: 0.5rem;
+}

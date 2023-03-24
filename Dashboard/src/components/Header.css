@@ -25,3 +25,7 @@
 .regLink {
   text-decoration: none;
 }
+
+.dropdown-toggle::after {
+  display: none !important;
+}

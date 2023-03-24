@@ -7,7 +7,12 @@ import bg3 from "../../images/bg3.png";
 function Author() {
   return (
     <div className="author">
-      <img className="d-block w-100 image-jumbo" src={bg3} alt="First slide" />
+      <img
+        className="d-block w-100 image-jumbo"
+        src={bg3}
+        alt="First"
+        style={{ height: "400px" }}
+      />
       <div className="author-cards">
         <div className="features-head">Authors</div>
         <div className="author-row">
