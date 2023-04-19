@@ -9,7 +9,11 @@
   color: #fff8f8;
   margin: 0.5rem;
 }
-
+.nav-item {
+  text-decoration: none !important;
+  font-size: 1rem;
+  color: #fff8f8 !important;
+}
 .nav-btn {
   background-color: #541b81;
   border-radius: 30px;

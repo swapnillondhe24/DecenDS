@@ -28,7 +28,9 @@ function Header() {
               fontWeight: 400,
             }}
           >
-            Upload File
+            <Link to="/dashboard" className="nav-item">
+              Dashboard
+            </Link>
           </Navbar.Text>
           <Navbar.Text
             className="nav-option"
@@ -38,17 +40,9 @@ function Header() {
               fontWeight: 400,
             }}
           >
-            Download File
-          </Navbar.Text>
-          <Navbar.Text
-            className="nav-option"
-            style={{
-              color: "#fff8f8",
-              fontFamily: "PT Sans Caption",
-              fontWeight: 400,
-            }}
-          >
-            Documentation
+            <Link to="/documentation" className="nav-item">
+              Documentation
+            </Link>
           </Navbar.Text>
           <Link to="/signup" className="regLink">
             <div className="nav-btn">Sign Up</div>
@@ -69,9 +63,23 @@ function Header() {
             }
             id="basic-nav-dropdown"
           >
-            <NavDropdown.Item href="#action/3.1">Logout</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.2">View Profile</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">Host a Node</NavDropdown.Item>
+            <NavDropdown.Item>Logout</NavDropdown.Item>
+            <NavDropdown.Item>
+              <Link
+                to="/profile"
+                style={{ textDecoration: "none", color: "#541b81" }}
+              >
+                View Profile
+              </Link>
+            </NavDropdown.Item>
+            <NavDropdown.Item>
+              <Link
+                to="/host"
+                style={{ textDecoration: "none", color: "#541b81" }}
+              >
+                Host a Node
+              </Link>
+            </NavDropdown.Item>
           </NavDropdown>
         </Navbar.Collapse>
       </Container>

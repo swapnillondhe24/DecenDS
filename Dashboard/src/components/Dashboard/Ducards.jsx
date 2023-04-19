@@ -6,10 +6,12 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import DownloadTable from "./DownloadTable";
 import axios from "axios";
 
 function Ducards() {
-  const [show, setShow] = useState(false);
+  const [showUpload, setShowUpload] = useState(false);
+  const [showDownload, setShowDownload] = useState(false);
 
   const [file, setFile] = useState();
 
@@ -33,14 +35,18 @@ function Ducards() {
     });
   }
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleCloseUpload = () => setShowUpload(false);
+  const handleShowUpload = () => setShowUpload(true);
+
+  const handleCloseDownload = () => setShowDownload(false);
+  const handleShowDownload = () => setShowDownload(true);
+
   return (
     <div className="download-upload">
       <Row>
         <Col>
           <div className="downup-card">
-            <div className="ducards" onClick={handleShow}>
+            <div className="ducards" onClick={handleShowUpload}>
               <div>
                 <img alt="icon upload" src={u} />
               </div>
@@ -50,7 +56,7 @@ function Ducards() {
         </Col>
         <Col>
           <div className="downup-card">
-            <div className="ducards">
+            <div className="ducards" onClick={handleShowDownload}>
               <div>
                 <img alt="icon upload" src={d} />
               </div>
@@ -59,8 +65,8 @@ function Ducards() {
           </div>
         </Col>
       </Row>
-
-      <Modal show={show} onHide={handleClose} animation={false}>
+      {/* Upload Modal */}
+      <Modal show={showUpload} onHide={handleCloseUpload} animation={false}>
         <Modal.Header closeButton>
           <Modal.Title>Upload File</Modal.Title>
         </Modal.Header>
@@ -71,11 +77,28 @@ function Ducards() {
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={handleCloseUpload}>
             Close
           </Button>
         </Modal.Footer>
       </Modal>
+      {/* Download Modal */}
+      <Modal show={showDownload} onHide={handleCloseDownload} animation={false}>
+        <Modal.Header closeButton>
+          <Modal.Title>Download File</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <DownloadTable />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary">Download</Button>
+          <Button variant="secondary" onClick={handleCloseDownload}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      {/* Terms and Condition Modal */}
+      {/* Upload Modal */}
     </div>
   );
 }
