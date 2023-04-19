@@ -28,7 +28,6 @@ function About() {
               playsInline
               loop
               muted
-              controls
               alt="All the devices"
               src={vid}
               ref={videoEl}
