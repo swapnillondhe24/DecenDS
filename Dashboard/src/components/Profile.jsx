@@ -1,18 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./Header";
 import "./Profile.css";
-import profile from "../images/profile.png";
+import profile1 from "../images/profile1.jpg";
 import Button from "react-bootstrap/esm/Button";
 import Form from "react-bootstrap/Form";
+import Modal from "react-bootstrap/Modal";
+import axios from "axios";
 
 function Profile() {
+  const [showUpload, setShowUpload] = useState(false);
+  const [file, setFile] = useState();
+  const handleCloseUpload = () => setShowUpload(false);
+  const handleShowUpload = () => setShowUpload(true);
+
+  function handleChange(event) {
+    setFile(event.target.files[0]);
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const url = "http://localhost:3000/uploadFile";
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("fileName", file.name);
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
+    axios.post(url, formData, config).then((response) => {
+      console.log(response.data);
+    });
+  }
+
   return (
     <div className="profile">
       <Header />
       <div className="profile-bar">Profile</div>
       <div className="profile-image-box">
         <img
-          src={profile}
+          src={profile1}
           alt="user profile"
           className="profile-image"
           style={{
@@ -24,7 +51,9 @@ function Profile() {
           }}
         />
         <span style={{ marginRight: "80px" }}>Upload a new picture</span>
-        <Button className="profile-button">Upload</Button>
+        <Button className="profile-button" onClick={handleShowUpload}>
+          Upload
+        </Button>
       </div>
       <div className="profile-text-box">
         <Form>
@@ -50,12 +79,28 @@ function Profile() {
             <Form.Control type="password" placeholder="Password" />
           </Form.Group> */}
 
-          <Button variant="primary" type="submit" className="profile-button">
+          <Button type="submit" className="profile-button">
             Update Information
           </Button>
         </Form>
       </div>
       <div style={{ height: "50px" }}></div>
+      <Modal show={showUpload} onHide={handleCloseUpload} animation={false}>
+        <Modal.Header closeButton>
+          <Modal.Title>Upload File</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form onSubmit={handleSubmit}>
+            <input type="file" onChange={handleChange} />
+            <button type="submit">Upload</button>
+          </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseUpload}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

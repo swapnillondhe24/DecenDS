@@ -59,3 +59,7 @@
   font-size: 18px;
   margin-top: 0.5rem;
 }
+
+.downup-card {
+  cursor: pointer;
+}
