@@ -39,8 +39,8 @@
 }
 
 .profile-button {
-  background-color: #541b81;
-  border: none;
+  background-color: #541b81 !important;
+  border: none !important;
 }
 
 .profile-form-label {
