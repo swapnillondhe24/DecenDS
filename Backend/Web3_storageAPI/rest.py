@@ -39,7 +39,7 @@ class REST_WEB3():
         # ret = {'cid': 'bafkreidivzimqfqtoqxkrpge6bjyhlvxqs3rhe73owtmdulaxr5do5in7u', 'dagSize': 6423, 'created': '2023-02-22T11:29:20.79+00:00', 'pins': [{'status': 'Pinned', 'updated': '2023-02-22T12:45:18.271+00:00', 'peerId': 'bafzbeibhqavlasjc7dvbiopygwncnrtvjd2xmryk5laib7zyjor6kf3avm', 'peerName': 'elastic-ipfs', 'region':
                                                                                                                                                         #    None}], 'deals': []}
         return response.json()
-        return ret
+        
 
     def getAllFiles(self):
         import json
