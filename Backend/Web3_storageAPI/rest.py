@@ -14,22 +14,23 @@ class REST_WEB3():
         self.endpoint = endpoint
         self.bearer = BEARER
 
-    def addFileToIPFS(self, file="./Copywright_Reference_Document.pdf"):
-        import urllib
-        file_name = os.path.basename(file)
-        encoded_name =  urllib.parse.quote(file_name)
-        
-        headers = {
-            'accept': 'application/json',
-            'Authorization': 'Bearer ' + self.bearer,
-            "X-NAME":encoded_name,
-        }
-
-        files = {'file': ('logo.png', open(file, 'rb'), 'image/png')}
-
-        response = requests.post(self.endpoint+"/upload", headers=headers, files=files)
-        return response.json()
-
+    def addFileToIPFS(self, file_data, file_name=None):
+       import urllib
+       if file_name is None:
+           file_name = "file"
+       encoded_name = urllib.parse.quote(file_name)
+    
+       headers = {
+           'accept': 'application/json',
+           'Authorization': 'Bearer ' + self.bearer,
+           "X-NAME": encoded_name,
+       }
+    
+       files = {'file': (file_name, file_data, 'application/octet-stream')}
+    
+       response = requests.post(self.endpoint+"/upload", headers=headers, files=files)
+       return response.json()
+    
     def getFileStatus(self, cid):
         headers = {
             'accept': 'application/json',

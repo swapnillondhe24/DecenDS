@@ -1,4 +1,5 @@
-### /register 
+### POST  /register 
+
 payload - 
 {
     "username":"<Username>",
@@ -21,7 +22,7 @@ if failure -
 }
 
 
-### /login
+###  POST /login
 payload - 
 {
     "username":"<Username>",
@@ -40,7 +41,7 @@ if failure :
     'message': 'Invalid username or password'
 }
 
-### /dashboard
+### POST /dashboard
 
 return : 
 {
