@@ -194,7 +194,7 @@ if success
 
 {
 
-    {"url": strng}  //open the link in __blank tab eg. : ``` <a href="http://your-api-url.com/download/file.pdf" download>Download File</a>```
+    {"url": strng}  //open the link in __blank tab eg. : ``` <a href="{strng}f" download>Download File</a>```
 
 }
 

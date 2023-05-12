@@ -6,11 +6,11 @@ from pymongo import MongoClient
 from bson import ObjectId
 from datetime import datetime, timedelta
 from functools import wraps
-from dotenv import load_dotenv
 import os
 from flask_cors import CORS
 import random
 from Web3_storageAPI.rest import REST_WEB3
+from dotenv import load_dotenv
 load_dotenv()
 
 
@@ -129,7 +129,7 @@ def onboarding(current_user):
             {'_id': ObjectId(current_user['_id'])},
             {'$set': {'storageRented': storage_rented}}
         )
-        return jsonify({'message': f'{current_user["username"]} has been onboarded! with {storage_rented} GB of storage'})
+        return jsonify({'message': f'{current_user["username"]} has been onboarded! with {storage_rented} MB of storage'})
     else:
         return jsonify({'message': 'Missing storageRented field in request body'})
 
@@ -141,7 +141,7 @@ def onboarding(current_user):
 def dashboard(current_user):
     try:
         space=current_user['storageRented']
-        print(space)
+        # print(space)
         temp_ret = {
     "username": current_user["username"],
     "peerId": current_user["peerId"],
