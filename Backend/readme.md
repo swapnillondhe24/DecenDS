@@ -22,6 +22,12 @@ if failure -
 }
 
 
+
+##############################################
+
+
+
+
 ###  POST /login
 payload - 
 {
@@ -49,6 +55,19 @@ if failure :
     "username" : "<username>",
     "peerId" : "<peerId>"
 }
+
+return - 
+if success
+{
+    'token':"<JWT>"
+}
+
+if failure
+
+{
+    {'message': 'Invalid username or PeerID'}
+}
+
 
 ### POST /dashboard
 header {
