@@ -159,24 +159,37 @@ json - {
 
 if success - 
 {
+
     'message': <username> has been onboarded! with <storage_rented> GB of storage'
+
 }
 ############################################################################################
 
 # POST /get_file_list
 
 header {
+
     "Authorization" : "<JWT>"
+
 }
 
 return - 
 
 if success 
 {
+
     <json of file names>
+
 }
 
 if failure -
 {
-    {'message': 'Invalid Credentials'}
+    
+    {
+
+        'message': 'Invalid Credentials'
+
+
+    }
+
 }
