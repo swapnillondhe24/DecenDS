@@ -29,7 +29,7 @@ payload -
     "password":"<Password>",
 }
 
-return - 
+##### return - 
 
 if success : 
 {
@@ -41,9 +41,73 @@ if failure :
     'message': 'Invalid username or password'
 }
 
-### POST /dashboard
 
-return : 
+
+### POST /android_auth
+##### payload - 
 {
-    'message': f'Hello, {current_user["username"]}!'
+    "username" : "<username>",
+    "peerId" : "<peerId>"
+}
+
+### POST /dashboard
+header {
+    Authorization : "JWT"
+}
+
+##### return : 
+{
+    "username": "<Username>",
+    "peerId": "<peerID>",
+    "storage_rented": "<number>",
+    "coins_earned": "<float>",
+    "bandwidth_used": "<number>",
+    "data_uploaded":  "<number>",
+    "data_downloaded":  "<number>",
+    "space_used": "<number>"
+}
+
+
+### POST /upload_file
+header {
+    Authorization : "JWT"
+}
+
+##### payload - 
+
+form-data = {
+    "name":"<Name of file>"
+    "file": "file-data"
+}
+
+##### return - 
+
+if success
+    {
+        "message":"file uploaded Sucess"
+    }
+
+if failure - 
+{
+    "message":"No file Selected"
+}
+
+
+
+
+### POST /onboarding
+header {
+    Authorization : "JWT"
+}
+
+##### payload - 
+json - {
+    "storageRented":"<size in MB>"
+}
+
+##### return - 
+
+if success - 
+{
+    'message': <username> has been onboarded! with <storage_rented> GB of storage'
 }
