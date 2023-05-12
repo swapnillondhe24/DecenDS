@@ -23,7 +23,7 @@ if failure -
 
 
 
-##############################################
+############################################################################################
 
 
 
@@ -48,8 +48,9 @@ if failure :
 }
 
 
+############################################################################################
 
-### POST /android_auth
+# POST /android_auth
 ##### payload - 
 {
     "username" : "<username>",
@@ -68,8 +69,9 @@ if failure
     {'message': 'Invalid username or PeerID'}
 }
 
+############################################################################################
 
-### POST /dashboard
+# POST /dashboard
 header {
     Authorization : "JWT"
 }
@@ -87,30 +89,59 @@ header {
 }
 
 
-### POST /upload_file
+# POST /upload_file
 header {
     Authorization : "JWT"
 }
 
 ##### payload - 
 
-form-data = {
+form = {
     "name":"<Name of file>"
-    "file": "file-data"
+}
+files = {
+    "file" : "<file>"
 }
 
 ##### return - 
 
 if success
     {
-        "message":"file uploaded Sucess"
-    }
+  "message": "File uploaded successfully",
+  "web3": {
+    "carCid": "bagbaieraltz6ftjtgbdxdy72qxydgiaomvucnz2eczklodavh5fzfpe5ecyq",
+    "cid": "bafkreigflrz6mblkeap7ntq6hqgcdves77erydzuvetdtxsodz3sapfr6q"
+  }
+}
 
 if failure - 
 {
     "message":"No file Selected"
 }
 
+
+
+
+# POST /upload_file
+header {
+    Authorization : "JWT"
+}
+
+#### payload 
+{
+    "cid":"<cid>"
+}
+
+return
+
+if success 
+{
+    {"url": strng}  //open the link in __blank tab eg. : ``` <a href="http://your-api-url.com/download/file.pdf" download>Download File</a>```
+}
+
+if failure:
+
+{'message': 'Invalid Credentials'}
 
 
 
@@ -129,4 +160,23 @@ json - {
 if success - 
 {
     'message': <username> has been onboarded! with <storage_rented> GB of storage'
+}
+############################################################################################
+
+### POST /get_file_list
+
+header {
+    "Authorization" : "<JWT>"
+}
+
+return - 
+
+if success 
+{
+    <json of file names>
+}
+
+if failure -
+{
+    {'message': 'Invalid Credentials'}
 }

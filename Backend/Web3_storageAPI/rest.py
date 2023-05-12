@@ -50,7 +50,7 @@ class REST_WEB3():
         }
 
         response = requests.get(self.endpoint+"/user/uploads", headers=headers)
-        return json.dumps(response.json(), indent=4)
+        return response.json()
 
     def getCAR(self,cid):
         
@@ -64,6 +64,7 @@ class REST_WEB3():
         
         return response.content
     
+
     def getUserUploads(self,cid):
         headers = {
             'accept': 'application/json', 

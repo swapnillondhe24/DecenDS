@@ -10,10 +10,11 @@ from dotenv import load_dotenv
 import os
 from flask_cors import CORS
 import random
-
+from Web3_storageAPI.rest import REST_WEB3
 load_dotenv()
 
 
+web3 = REST_WEB3()
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -25,6 +26,7 @@ client = MongoClient(uri)
 db = client['DecenDS']
 users = db['DecenDS_users']
 app.config['SECRET_KEY'] = secret
+
 
 def token_required(f):
     @wraps(f)
@@ -46,6 +48,8 @@ def token_required(f):
         return f(current_user, *args, **kwargs)
 
     return decorated
+
+
 
 @app.route('/register', methods=['POST'])
 def register():
@@ -82,7 +86,7 @@ def login():
 def android_auth():
     data = request.get_json()
     user = users.find_one({'username': data['username']})
-    if not user or not (user['peerId'] != data['peerId']):
+    if not user or not (user['peerId'] == data['peerId']):
         return jsonify({'message': 'Invalid username or PeerID'}), 401
     # Generate JWT token
     payload = {
@@ -96,15 +100,23 @@ def android_auth():
 @app.route('/upload_file', methods=['POST'])
 @token_required
 def upload_file(current_user):
+    
     data = request.files['file']
-    filename = request.get_json()['filename']
+    # print(data)
+    filename = request.form.get('filename')
+    print(filename)
 
     if not data:
         return jsonify({'message': 'No file selected'}), 400
     
     # data.save(f'./files/{filename}')
     # uploa dto IPFS and save hash in DB
-    return jsonify({'message': 'File uploaded successfully'})
+    ret = web3.addFileToIPFS(data, filename)
+    
+    return jsonify({
+        'message': 'File uploaded successfully',
+        'web3': ret
+    })
 
 
 
@@ -128,21 +140,73 @@ def onboarding(current_user):
 @token_required
 def dashboard(current_user):
     try:
+        space=current_user['storageRented']
+        print(space)
         temp_ret = {
     "username": current_user["username"],
     "peerId": current_user["peerId"],
-    "storage_rented": current_user["storage_rented"],
+    "storage_rented": space,
     "coins_earned": random.uniform(0.000000,10.000000),
-    "bandwidth_used": random.randint(4000,100000),
-    "data_uploaded": random.randint(4000,100000),
-    "data_downloaded": random.randint(4000,100000),
-    "space_used": random.randint(current_user['spacerented'])
+    "bandwidth_used": random.randint(4000,10000),
+    "data_uploaded": random.randint(4000,10000),
+    "data_downloaded": random.randint(4000,10000),
+    "space_used": random.randint(1,int(space-1))
     }
-    except:
+    except Exception as e:
+        print("Error", e)
         return jsonify({'message': 'Invalid username or PeerID'}), 401
 
     return temp_ret
 
+
+@app.route('/get_file_list', methods=['POST'])
+@token_required
+def get_file_list(current_user):
+    try:
+        temp_ret = web3.getAllFiles()
+        ret = []
+        for i in temp_ret:
+            ret.append({
+                "_id": i['_id'],
+                "name": i['name'],
+                "cid": i['cid'],
+                "type": i['type']
+            })
+            
+        return ret
+    except Exception as e:
+        print("Error", e)
+        return jsonify({'message': 'Invalid Credentials'}), 401
+
+
+@app.route('/download_file', methods=['POST'])
+@token_required
+def download_file(current_user):
+    try:
+        cid = request.json.get('cid')
+        strng = "https://"+cid+".ipfs.w3s.link/"
+
+        return {"url": strng}
+    except Exception as e:
+        print("Error", e)
+        return jsonify({'message': 'Invalid Credentials'}), 401
+
+
+
+
+@app.route('/addpeer', methods=['POST'])
+def addPeer(current_user):
+    peer = request.json.get('peerId')
+    if peer:
+        users.update_one(
+            {'_id': ObjectId(current_user['_id'])},
+            {'$set': {'peerId': peer}}
+        )
+        return jsonify({'message': 'PeerID added successfully'})
+    else:
+        return jsonify({'message': 'Missing peerId field in request body'})
+
+# _id type name cid
 
 
 
