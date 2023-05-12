@@ -1,4 +1,4 @@
-### POST  /register 
+# POST  /register 
 
 payload - 
 {
@@ -28,7 +28,7 @@ if failure -
 
 
 
-###  POST /login
+#  POST /login
 payload - 
 {
     "username":"<Username>",
@@ -88,7 +88,7 @@ header {
     "space_used": "<number>"
 }
 
-
+############################################################################################
 # POST /upload_file
 header {
     Authorization : "JWT"
@@ -120,9 +120,9 @@ if failure -
 }
 
 
+############################################################################################
 
-
-# POST /upload_file
+# POST /download_file
 header {
     Authorization : "JWT"
 }
@@ -144,8 +144,8 @@ if failure:
 {'message': 'Invalid Credentials'}
 
 
-
-### POST /onboarding
+############################################################################################
+# POST /onboarding
 header {
     Authorization : "JWT"
 }
@@ -163,7 +163,7 @@ if success -
 }
 ############################################################################################
 
-### POST /get_file_list
+# POST /get_file_list
 
 header {
     "Authorization" : "<JWT>"
