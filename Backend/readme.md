@@ -167,7 +167,9 @@ if success -
 
 # POST /get_file_list
 
-header {
+header 
+
+{
 
     "Authorization" : "<JWT>"
 
@@ -176,6 +178,8 @@ header {
 return - 
 
 if success 
+
+
 {
 
     <json of file names>
@@ -183,8 +187,10 @@ if success
 }
 
 if failure -
+
+
 {
-    
+
     {
 
         'message': 'Invalid Credentials'
