@@ -7,33 +7,59 @@ import Col from "react-bootstrap/Col";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import DownloadTable from "./DownloadTable";
-import axios from "axios";
 
 function Ducards() {
   const [showUpload, setShowUpload] = useState(false);
   const [showDownload, setShowDownload] = useState(false);
 
-  const [file, setFile] = useState();
+  const [file, setFile] = useState(null);
+  const [message, setMessage] = useState(null);
 
-  function handleChange(event) {
+  const token = localStorage.getItem("token");
+
+  const handleFileChange = (event) => {
     setFile(event.target.files[0]);
-  }
-
-  function handleSubmit(event) {
+  };
+  const getToken = () => {
+    return localStorage.getItem("token");
+  };
+  const handleUploadClick = async (event) => {
     event.preventDefault();
-    const url = "http://localhost:3000/uploadFile";
+    const fileInput = document.querySelector('input[type="file"]');
+    const file = fileInput.files[0];
+
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("fileName", file.name);
-    const config = {
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-    };
-    axios.post(url, formData, config).then((response) => {
-      console.log(response.data);
-    });
-  }
+    formData.append("filename", file.name);
+    try {
+      const response = await fetch("https://mereor.serveo.net/upload_file", {
+        method: "POST",
+        body: formData,
+        headers: { Authorization: `${token}` },
+      });
+      console.log(formData);
+      const data = await response.json();
+
+      setMessage(data.message);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  // const handleUploadClick = () => {
+  //   const formData = new FormData();
+  //   formData.append("file", file);
+
+  //   fetch("https://5b7a-202-71-157-235.ngrok-free.app/upload_file", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `${token}`,
+  //     },
+  //     body: formData,
+  //   })
+  //     .then((response) => response.json())
+  //     .catch((error) => console.error(error));
+  // };
 
   const handleCloseUpload = () => setShowUpload(false);
   const handleShowUpload = () => setShowUpload(true);
@@ -71,10 +97,13 @@ function Ducards() {
           <Modal.Title>Upload File</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form onSubmit={handleSubmit}>
-            <input type="file" onChange={handleChange} />
-            <button type="submit">Upload</button>
+          <form>
+            <input type="file" onChange={handleFileChange} />
+            <button onClick={handleUploadClick} disabled={!file}>
+              Upload File
+            </button>
           </form>
+          {message && <p>{message}</p>}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseUpload}>
@@ -91,7 +120,13 @@ function Ducards() {
           <DownloadTable />
         </Modal.Body>
         <Modal.Footer>
+          {/* <Button variant="secondary" onClick={handleDownloadClick}> */}
           <Button variant="secondary">Download</Button>
+          {/* {fileUrl && (
+            <a href={fileUrl} download>
+              Click here to download the file
+            </a>
+          )} */}
           <Button variant="secondary" onClick={handleCloseDownload}>
             Close
           </Button>

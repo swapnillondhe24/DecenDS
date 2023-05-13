@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import "./Home.css";
 import { Row, Col } from "react-bootstrap";
 import vid from "../../images/about.mp4";
+import about from "../../images/about.png";
 
 function About() {
   const videoEl = useRef(null);
@@ -20,8 +21,11 @@ function About() {
 
   return (
     <div className="About ">
+      <div className="about-head" style={{ marginBottom: "0" }}>
+        About Us <img src={about} alt="about-us-col" />
+      </div>
       <Row>
-        <Col sm={4}>
+        <Col lg={4} md={6} sm={12}>
           <div className="about-inner">
             <video
               style={{ width: "300px", margin: "0 auto" }}
@@ -34,11 +38,8 @@ function About() {
             />
           </div>
         </Col>
-        <Col sm={8}>
+        <Col lg={8} md={6} sm={12}>
           <div className="about-inner">
-            <div className="features-head" style={{ textAlign: "left" }}>
-              About Us
-            </div>
             <div className="about-body ">
               Developed an Decentralized Data Storage System for user to
               overcome all the current limitations of an centralized system such

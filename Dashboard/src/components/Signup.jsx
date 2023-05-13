@@ -1,40 +1,97 @@
 import React, { useState } from "react";
 import "./Signin.css";
-import logo from "../images/logo.png";
-import { Link } from "react-router-dom";
+import logo from "../images/logo2.png";
+import { Link, useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 
 function Signup() {
   const [data, setData] = useState({
-    name: "",
+    username: "",
     email: "",
-    pwd: "",
-    cpwd: "",
+    password: "",
+    cpassword: "",
   });
+  const [errors, setErrors] = useState([]);
 
-  function store(e) {
-    e.preventDefault();
-    console.log(data);
-  }
+  const navigate = useNavigate();
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePassword = (password) => {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+    return passwordRegex.test(password);
+  };
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+
+    const errors = [];
+
+    if (!validateEmail(data.email)) {
+      errors.push("Please enter a valid email address");
+      console.log("email invalid");
+    }
+
+    if (!validatePassword(data.password)) {
+      errors.push(
+        "Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, and one number"
+      );
+      console.log("pwd invalid");
+    }
+    if (data.password !== data.cPassword) {
+      errors.push("Passwords do not match");
+      console.log("passwords dont match");
+    }
+
+    if (errors.length === 0) {
+      fetch("https://mereor.serveo.net/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => {
+          if (response.ok) {
+            navigate("/dashboard");
+          } else {
+            console.log("Error registering user.");
+          }
+        })
+        .catch((error) => {
+          console.error("Error registering user:", error);
+        });
+    } else {
+      setErrors(errors);
+    }
+  };
 
   return (
     <div className="signin">
       <Link to="/" className="regLink">
-        <img src={logo} alt="logo image" className="logo-img" />
+        <img
+          src={logo}
+          alt="logoimage"
+          className="logo-img"
+          style={{ marginTop: "2rem", height: "100px" }}
+        />
       </Link>
       <div className="  login-box">
         <div className="form-head">Sign Up</div>
-        <form>
+        <form method="POST">
           <div className="form-grp">
-            <label className="form-label">Name</label>
+            <label className="form-label">Username</label>
             <br />
             <input
               type="text"
-              placeholder="Enter Name"
+              placeholder="Enter Username"
               className="form-ip"
-              name="name"
+              name="username"
               value={data.name}
-              onChange={(e) => setData({ ...data, name: e.target.value })}
+              onChange={(e) => setData({ ...data, username: e.target.value })}
             />
           </div>
           <br></br>
@@ -58,9 +115,9 @@ function Signup() {
               type="password"
               placeholder="Enter Password"
               className="form-ip"
-              name="pwd"
-              value={data.pwd}
-              onChange={(e) => setData({ ...data, pwd: e.target.value })}
+              name="password"
+              value={data.password}
+              onChange={(e) => setData({ ...data, password: e.target.value })}
             />
           </div>
           <div className="form-grp">
@@ -70,9 +127,9 @@ function Signup() {
               type="password"
               placeholder="Confirm Password"
               className="form-ip"
-              name="cpwd"
-              value={data.cpwd}
-              onChange={(e) => setData({ ...data, cpwd: e.target.value })}
+              name="cpassword"
+              value={data.cpassword}
+              onChange={(e) => setData({ ...data, cpassword: e.target.value })}
             />
           </div>
           <div className=" check">
@@ -81,7 +138,7 @@ function Signup() {
               Policy
             </label>
           </div>
-          <button type="submit" className="form-btn" onClick={store}>
+          <button type="submit" className="form-btn" onClick={handleFormSubmit}>
             Submit
           </button>
         </form>

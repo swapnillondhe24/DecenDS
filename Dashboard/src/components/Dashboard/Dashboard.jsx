@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../Header";
 import "./Dashboard.css";
 import Ducards from "./Ducards";
@@ -7,12 +7,36 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 function Dashboard() {
+  const [data, setData] = useState(null);
+
+  const token = localStorage.getItem("token");
+  useEffect(() => {
+    fetch("https://mereor.serveo.net/dashboard", requestOptions)
+      .then((response) => response.json())
+      .then((data) => setData(data))
+      .catch((error) => console.error(error));
+  }, []);
+  if (!token) {
+    // Redirect to login if the user is not authenticated
+    window.location.href = "/login";
+    return null;
+  }
+  const requestOptions = {
+    method: "POST",
+    headers: { Authorization: `${token}` },
+  };
+
   return (
     <div className="dashboard">
-      <Header />
+      <Header peerId={data?.peerId} coins_earned={data.coins_earned} />
       <div className="dashboard-bar">Dashboard</div>
       <div className="dashboard-cards">
-        <Dashcards />
+        <Dashcards
+          data_uploaded={data?.data_uploaded}
+          data_downloaded={data?.data_downloaded}
+          space_used={data?.space_used}
+          storage_rented={data?.storage_rented}
+        />
       </div>
       <div className="downup">
         <Ducards />

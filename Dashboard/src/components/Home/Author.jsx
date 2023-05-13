@@ -3,37 +3,71 @@ import Button from "react-bootstrap/Button";
 import { Card, Row, Col } from "react-bootstrap";
 import "./Home.css";
 import bg3 from "../../images/bg3.png";
+import ayushi from "../../images/ayushi.jpg";
+import shivu from "../../images/shivu.jpg";
+import sappu from "../../images/sappu.jpg";
 
 function Author() {
   return (
     <div className="author">
-      <img
-        className="d-block w-100 image-jumbo"
-        src={bg3}
-        alt="First"
-        style={{ height: "400px" }}
-      />
       <div className="author-cards">
-        <div className="features-head">Authors</div>
-        <div className="author-row">
-          <div
-            className="card"
-            style={{ backgroundColor: "#fff", height: "200px", width: "200px" }}
-          >
-            <img />
-            <div>Name</div>
+        <div className="features-head">Our Authors</div>
+        <div className="author-row container">
+          <div className="card">
+            <img
+              src={ayushi}
+              alt="author1"
+              style={{
+                width: "100%",
+                height: "100%",
+                borderRadius: "50%",
+                boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
+              }}
+            />
+            <div className="authorName">Ayushi Nandeshwar</div>
+            <div className="authorinfo">Frontend Developer</div>
           </div>
           <div className="card">
-            <img />
-            <div>Name</div>
+            <img
+              src={shivu}
+              alt="author1"
+              style={{
+                width: "100%",
+                height: "100%",
+                borderRadius: "50%",
+                boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
+              }}
+            />
+            <div className="authorName">Shivyani Rathod</div>
+            <div className="authorinfo">Designer and Frontend Developer</div>
           </div>
           <div className="card">
-            <img />
-            <div>Name</div>
+            <img
+              src={sappu}
+              alt="author1"
+              style={{
+                width: "100%",
+                height: "100%",
+                borderRadius: "50%",
+                boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
+              }}
+            />
+            <div className="authorName">Swapnil Londhe</div>
+            <div className="authorinfo">Backend Developer</div>
           </div>
           <div className="card">
-            <img />
-            <div>Name</div>
+            <img
+              src={ayushi}
+              alt="author1"
+              style={{
+                width: "100%",
+                height: "100%",
+                borderRadius: "50%",
+                boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
+              }}
+            />
+            <div className="authorName">Ayushi Nandeshwar</div>
+            <div className="authorinfo">Ayushi Nandeshwar</div>
           </div>
           {/* <Row>
             <Col>

@@ -1,6 +1,7 @@
 .signin {
-  background-image: url("../images/login-bg.png");
+  /* background-image: url("../images/login-bg.png"); */
   color: #fff;
+  background-color: #e1e2ef;
   /* margin-bottom: 3rem; */
 }
 
@@ -10,12 +11,12 @@
 
 .login-box {
   margin-top: 3rem;
-  background-color: #181616;
+  background-color: #9191e9;
   margin-left: 25%;
   margin-right: 40%;
   width: 50%;
   border-radius: 36px;
-  padding: 2rem;
+  padding: 0.5rem;
   margin-bottom: 1rem;
 }
 
@@ -25,11 +26,12 @@
   text-align: left;
   margin-left: 3rem;
   margin-top: 3rem;
+  margin-bottom: 2rem;
   /* align-items: flex-start; */
 }
 
 .form-grp {
-  margin-top: 2rem;
+  margin-top: 0.5rem;
   align-items: flex-start;
   text-align: left;
   margin-left: 3rem;
@@ -45,17 +47,18 @@
 
 .form-ip {
   width: 90%;
-  background: #181616;
-  border: 2px solid #d9d9d9;
+  background: #fff;
+  border: 1px solid #d9d9d9;
   border-radius: 10px;
-  color: #fff;
+  color: #4c4c4e;
   height: 50px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 400;
+  padding: 1rem;
 }
 .form-label {
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 400;
   margin-bottom: 0.5rem;
 }
 
@@ -66,15 +69,19 @@
   height: 55px;
   width: 84%;
   color: #fff;
-  font-weight: 600;
+  font-weight: 400;
   margin-bottom: 1rem;
 }
 
 .Forgot {
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .already {
-  font-weight: 600;
+  font-weight: 400;
   padding-bottom: 2rem;
+}
+
+input {
+  padding: 0px 0px;
 }

@@ -3,6 +3,10 @@
   margin-top: 0;
 }
 
+.navbar {
+  background-color: #9191e9;
+}
+
 .nav-option {
   font-weight: 600;
   font-size: 1rem;
@@ -32,4 +36,18 @@
 
 .dropdown-toggle::after {
   display: none !important;
+}
+
+/* Medium screens (600px - 992px) */
+
+@media screen and (min-width: 600px) and (max-width: 992px) {
+  .navbar {
+    width: 100%;
+  }
+  .nav-btn {
+    font-size: 12px;
+
+    width: 4rem;
+    height: 2rem;
+  }
 }
