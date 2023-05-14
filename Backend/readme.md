@@ -279,7 +279,7 @@ if failure -
 
 ######################################################
 
-# POST /get_file_list
+# POST /active_time
 
 header 
 
