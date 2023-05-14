@@ -274,3 +274,60 @@ if failure -
     }
 
 }
+
+
+
+######################################################
+
+# POST /get_file_list
+
+header 
+
+{
+
+    "Authorization" : "<JWT>"
+
+}
+
+return - 
+
+if success 
+
+
+{
+
+    {
+        
+        'message': <username> active time has been updated!'
+        
+        }
+
+}
+
+if failure -
+
+
+{
+
+    
+
+        {
+            
+            'message': 'Missing active_time field in request body'
+            
+        }
+
+}
+
+if Internal Server Error - 
+
+{
+
+    {
+
+        'message':'Error Occured while updating active time'
+
+    }
+
+
+}

@@ -1,3 +1,4 @@
+import string
 from flask_restful import Api
 import jwt
 from flask import Flask, jsonify, request
@@ -17,7 +18,7 @@ load_dotenv()
 web3 = REST_WEB3()
 
 app = Flask(__name__)
-cors = CORS(app)
+cors = CORS(app,resources={r"/*": {"origins": "*"}})
 
 uri = os.getenv("MONGO_URI")
 secret = os.getenv("SECRET_KEY")
@@ -55,12 +56,13 @@ def token_required(f):
 def register():
     
     data = request.get_json()
+    peer_id = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
     # print(data)
     if users.find_one({'username': data['username']}):
         return jsonify({'message': 'Username already exists'}), 400
     
     hashed_password = generate_password_hash(data['password'], method='sha256')
-    user = {'username': data['username'], 'password': hashed_password,'email': data['email']}
+    user = {'username': data['username'], 'password': hashed_password,'email': data['email'], 'peerId': peer_id,"storageRented": 0}
     users.insert_one(user)
     return jsonify({'message': 'User registered successfully'})
 
@@ -97,13 +99,14 @@ def android_auth():
 
 
 
-@app.route('/upload_file', methods=['POST'])
+@app.route('/upload_file', methods=['POST','GET'])
 @token_required
 def upload_file(current_user):
     
     data = request.files['file']
-    # print(data)
+    print(data)
     filename = request.form.get('filename')
+
     print(filename)
 
     if not data:
@@ -140,13 +143,19 @@ def onboarding(current_user):
 @token_required
 def dashboard(current_user):
     try:
-        space=current_user['storageRented']
-        # print(space)
+        space = current_user["storageRented"]
+    except:
+        return jsonify({'message': 'User has not been onboarded yet'}), 400
+    
+    if not space:
+        return jsonify({'message': 'User has not been onboarded yet'}), 400
+    
+    try:
         temp_ret = {
     "username": current_user["username"],
     "peerId": current_user["peerId"],
     "storage_rented": space,
-    "coins_earned": random.uniform(0.000000,10.000000),
+    "coins_earned": round(random.uniform(0.000, 0.0004) * space, 5),
     "bandwidth_used": random.randint(4000,10000),
     "data_uploaded": random.randint(4000,10000),
     "data_downloaded": random.randint(4000,10000),
@@ -194,17 +203,52 @@ def download_file(current_user):
 
 
 
+
 @app.route('/addpeer', methods=['POST'])
-def addPeer(current_user):
-    peer = request.json.get('peerId')
-    if peer:
-        users.update_one(
-            {'_id': ObjectId(current_user['_id'])},
-            {'$set': {'peerId': peer}}
-        )
-        return jsonify({'message': 'PeerID added successfully'})
-    else:
-        return jsonify({'message': 'Missing peerId field in request body'})
+@token_required
+def add_peer(current_user):
+    try:
+        peer_id = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
+        users.update_one({'_id': current_user['_id']}, {'$set': {'peerId': peer_id}})
+        return jsonify({'peerId': peer_id})
+    
+    except Exception as e:
+        print("Error", e)
+        return jsonify({'message': 'Invalid Credentials'}), 401
+    
+
+
+@app.route('/active_time', methods=['POST'])
+@token_required
+def active_time(current_user):
+    try:
+        active_time = request.json.get('active_time')
+        if active_time:
+            users.update_one(
+                {'_id': ObjectId(current_user['_id'])},
+                {'$set': {'activeTime': active_time}}
+            )
+            return jsonify({'message': f'{current_user["username"]} active time has been updated!'})
+        else:
+            return jsonify({'message': 'Missing active_time field in request body'}), 400
+    except Exception as e:
+        print("Error", e)
+        return jsonify({'message': 'Error occurred while updating active time'}), 500
+
+
+
+# @app.route('/addpeer', methods=['POST'])
+# @token_required
+# def addPeer(current_user):
+#     peer = request.json.get('peerId')
+#     if peer:
+#         users.update_one(
+#             {'_id': ObjectId(current_user['_id'])},
+#             {'$set': {'peerId': peer}}
+#         )
+#         return jsonify({'message': 'PeerID added successfully'})
+#     else:
+#         return jsonify({'message': 'Missing peerId field in request body'})
 
 # _id type name cid
 
