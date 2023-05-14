@@ -62,7 +62,7 @@ def register():
         return jsonify({'message': 'Username already exists'}), 400
     
     hashed_password = generate_password_hash(data['password'], method='sha256')
-    user = {'username': data['username'], 'password': hashed_password,'email': data['email'], 'peerId': peer_id,"storageRented": 0}
+    user = {'username': data['username'], 'password': hashed_password,'email': data['email'], 'peerId': peer_id,"storageRented": 0,"activeTime": 0}
     users.insert_one(user)
     return jsonify({'message': 'User registered successfully'})
 
@@ -224,11 +224,20 @@ def active_time(current_user):
     try:
         active_time = request.json.get('active_time')
         if active_time:
-            users.update_one(
+            try:
+                users.update_one(
+                {'_id': ObjectId(current_user['_id'])},
+                {'$inc': {'activeTime': active_time}}
+                )
+                print("update")
+                return jsonify({'message': f'{current_user["username"]} active time has been updated!'})
+            except:
+                users.update_one(
                 {'_id': ObjectId(current_user['_id'])},
                 {'$set': {'activeTime': active_time}}
-            )
-            return jsonify({'message': f'{current_user["username"]} active time has been updated!'})
+                )
+                print("Set")
+                return jsonify({'message': f'{current_user["username"]} active time has been Set!'})
         else:
             return jsonify({'message': 'Missing active_time field in request body'}), 400
     except Exception as e:
