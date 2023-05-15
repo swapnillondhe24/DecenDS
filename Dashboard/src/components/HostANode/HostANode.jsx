@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import "./HostANode.css";
 import Header from "../Header";
 import note from "../../images/note.png";
 import { Link } from "react-router-dom";
+import TermsAndCondition from "./TermsAndCondition";
 
 function HostANode() {
+  const [isChecked, setIsChecked] = useState(false);
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
   return (
     <div className="host-a-node">
       <Header />
@@ -14,37 +19,19 @@ function HostANode() {
       </div>
       <div className="tandc">
         <div className="tandc-content">
-          <h4>Terms and Conditions</h4>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, natus
-          quisquam provident dolorem nulla ab exercitationem sapiente sequi
-          obcaecati deserunt voluptas, labore tempore. A facilis ducimus,
-          dignissimos id sunt obcaecati. Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Eius, natus quisquam provident dolorem nulla ab
-          exercitationem sapiente sequi obcaecati deserunt voluptas, labore
-          tempore. A facilis ducimus, dignissimos id sunt obcaecati. Lorem ipsum
-          dolor sit amet consectetur adipisicing elit. Eius, natus quisquam
-          provident dolorem nulla ab exercitationem sapiente sequi obcaecati
-          deserunt voluptas, labore tempore. A facilis ducimus, dignissimos id
-          sunt obcaecati. Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Eius, natus quisquam provident dolorem nulla ab exercitationem
-          sapiente sequi obcaecati deserunt voluptas, labore tempore. A facilis
-          ducimus, dignissimos id sunt obcaecati. Lorem ipsum dolor sit amet
-          consectetur adipisicing elit. Eius, natus quisquam provident dolorem
-          nulla ab exercitationem sapiente sequi obcaecati deserunt voluptas,
-          labore tempore. A facilis ducimus, dignissimos id sunt obcaecati.
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, natus
-          quisquam provident dolorem nulla ab exercitationem sapiente sequi
-          obcaecati deserunt voluptas, labore tempore. A facilis ducimus,
-          dignissimos id sunt obcaecati.
+          <TermsAndCondition />
         </div>
         <input
           type="checkbox"
+          checked={isChecked}
+          onChange={handleCheckboxChange}
           class="tandc-checkbox"
           name="tandc"
           value="tandc"
         />
         <label for="vehicle1"> I have read all the Terms and Conditions</label>
       </div>
+
       <div className="tandc-details">
         <Link
           to="/documentation"
