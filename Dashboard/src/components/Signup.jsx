@@ -47,7 +47,7 @@ function Signup() {
     }
 
     if (errors.length === 0) {
-      fetch("https://mereor.serveo.net/register", {
+      fetch("https://df48-106-66-29-78.ngrok-free.app/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

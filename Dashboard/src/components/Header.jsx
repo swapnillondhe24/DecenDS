@@ -8,15 +8,31 @@ import "./Header.css";
 import logo from "../images/logo2.png";
 import user from "../images/user.png";
 import jwtDecode from "jwt-decode";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faClipboard,
+  faXmark,
+  faCheck,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
+
+function ShortenText({ text, maxLength }) {
+  if (text.length <= maxLength) {
+    return <span>{text}</span>;
+  }
+
+  return <span>{`${text.substring(0, maxLength)}...`}</span>;
+}
 
 function Header(props) {
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [copyStatus, setCopyStatus] = useState("");
 
-  // useEffect(() => {
-  //   const loggedIn = localStorage.getItem("isLoggedIn") === "true";
-  //   setIsLoggedIn(loggedIn);
-  // }, []);
-
+  const handleCopyText = (e) => {
+    navigator.clipboard
+      .writeText(props.peerId)
+      .then(() => setCopyStatus("Copied"))
+      .catch(() => setCopyStatus("Copy failed."));
+  };
   const checkAuth = () => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -40,7 +56,16 @@ function Header(props) {
     localStorage.removeItem("token");
     navigate("/signup");
   };
-
+  const popperConfig = {
+    modifiers: [
+      {
+        name: "offset",
+        options: {
+          offset: [-1000, 0], // Adjust the first value to move the dropdown towards the left
+        },
+      },
+    ],
+  };
   return (
     <Navbar className="navbar">
       <Container>
@@ -82,18 +107,37 @@ function Header(props) {
             <NavDropdown
               title={
                 <div className="pull-left ">
-                  <img
+                  {/* <img
                     className="thumbnail-image"
                     src={user}
                     alt="user"
                     style={{ width: "48spx", height: "48px" }}
-                  />
+                  /> */}
+                  <FontAwesomeIcon icon={faUser} size="2xl" />
                 </div>
               }
+              popperConfig={popperConfig}
               id="basic-nav-dropdown"
             >
-              <NavDropdown.Item>{props.peerId}</NavDropdown.Item>
-              <NavDropdown.Item>{props.coins_earned}</NavDropdown.Item>
+              <NavDropdown.Item>
+                Peer Id :
+                <ShortenText text={props.peerId} maxLength={5} />
+                {!copyStatus ? (
+                  <button
+                    onClick={handleCopyText}
+                    style={{ border: "none", backgroundColor: "#fff" }}
+                  >
+                    <FontAwesomeIcon icon={faClipboard} />
+                  </button>
+                ) : copyStatus === "Copied" ? (
+                  <FontAwesomeIcon icon={faCheck} />
+                ) : (
+                  <FontAwesomeIcon icon={faXmark} />
+                )}
+              </NavDropdown.Item>
+              <NavDropdown.Item>
+                Coins Earned : {props.coins_earned}
+              </NavDropdown.Item>
 
               <NavDropdown.Item>
                 <Link

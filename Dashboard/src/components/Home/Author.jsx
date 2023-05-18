@@ -6,6 +6,7 @@ import bg3 from "../../images/bg3.png";
 import ayushi from "../../images/ayushi.jpg";
 import shivu from "../../images/shivu.jpg";
 import sappu from "../../images/sappu.jpg";
+import yashaaa from "../../images/yashaaa.jpg";
 
 function Author() {
   return (
@@ -57,7 +58,7 @@ function Author() {
           </div>
           <div className="card">
             <img
-              src={ayushi}
+              src={yashaaa}
               alt="author1"
               style={{
                 width: "100%",
@@ -66,8 +67,8 @@ function Author() {
                 boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
               }}
             />
-            <div className="authorName">Ayushi Nandeshwar</div>
-            <div className="authorinfo">Ayushi Nandeshwar</div>
+            <div className="authorName">Yash Deshmukh</div>
+            <div className="authorinfo">Android Developer</div>
           </div>
           {/* <Row>
             <Col>

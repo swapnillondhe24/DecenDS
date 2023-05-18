@@ -11,7 +11,7 @@ function Dashboard() {
 
   const token = localStorage.getItem("token");
   useEffect(() => {
-    fetch("https://mereor.serveo.net/dashboard", requestOptions)
+    fetch("https://df48-106-66-29-78.ngrok-free.app/dashboard", requestOptions)
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error(error));
@@ -28,7 +28,7 @@ function Dashboard() {
 
   return (
     <div className="dashboard">
-      <Header peerId={data?.peerId} coins_earned={data.coins_earned} />
+      <Header peerId={data?.peerId} coins_earned={data?.coins_earned} />
       <div className="dashboard-bar">Dashboard</div>
       <div className="dashboard-cards">
         <Dashcards

@@ -1,12 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./HostANode.css";
 import Header from "../Header";
 import note from "../../images/note.png";
 import { Link } from "react-router-dom";
 import TermsAndCondition from "./TermsAndCondition";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faNoteSticky } from "@fortawesome/free-solid-svg-icons";
 
 function HostANode() {
   const [isChecked, setIsChecked] = useState(false);
+  const [data, setData] = useState(null);
+
+  const token = localStorage.getItem("token");
+  useEffect(() => {
+    fetch("https://df48-106-66-29-78.ngrok-free.app/dashboard", requestOptions)
+      .then((response) => response.json())
+      .then((data) => setData(data))
+      .catch((error) => console.error(error));
+  }, []);
+
+  const requestOptions = {
+    method: "POST",
+    headers: { Authorization: `${token}` },
+  };
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };
@@ -14,8 +30,13 @@ function HostANode() {
     <div className="host-a-node">
       <Header />
       <div className="host-a-node-bar">
-        <img src={note} alt="Peer ID " />
-        Peer ID : 123456789uugftvvv555{" "}
+        <FontAwesomeIcon icon={faNoteSticky} size="2xl" />
+        <span style={{ marginLeft: "10px" }}>Peer ID : {data?.peerId}</span>
+      </div>
+      <div className="host-a-node-bar">
+        <FontAwesomeIcon icon={faNoteSticky} size="2xl" />
+
+        <span>Coins Earned : {data?.coins_earned}</span>
       </div>
       <div className="tandc">
         <div className="tandc-content">
