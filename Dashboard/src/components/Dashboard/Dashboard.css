@@ -63,3 +63,10 @@
 .downup-card {
   cursor: pointer;
 }
+
+.download_file_btn {
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #fff;
+}

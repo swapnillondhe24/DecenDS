@@ -19,14 +19,17 @@ function Signin() {
     e.preventDefault();
     console.log(data);
 
-    const response = await fetch("https://mereor.serveo.net/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        // "Authorization" : "",
-      },
-      body: JSON.stringify(data),
-    });
+    const response = await fetch(
+      "https://df48-106-66-29-78.ngrok-free.app/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // "Authorization" : "",
+        },
+        body: JSON.stringify(data),
+      }
+    );
     if (response.ok) {
       const data = await response.json();
       localStorage.setItem("token", data.token);

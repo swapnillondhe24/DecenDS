@@ -1,27 +1,49 @@
 import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
 
 function DownloadTable() {
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
+  let loadingGif = require("../../images/loading.gif");
   const token = localStorage.getItem("token");
 
-  useEffect(() => {
-    fetch("https://mereor.serveo.net/get_file_listt", {
-      method: "POST",
-      headers: { Authorization: `${token}` },
-    })
-      .then((response) => response.json())
-      .then((data) => setData(data))
-      .catch((error) => setError(error));
-  }, []);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-  if (!data) {
-    return <div>Loading...</div>;
-  }
+  useEffect(() => {
+    fetch(
+      "https://df48-106-66-29-78.ngrok-free.app/get_file_list",
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setData(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        setLoading(false);
+      });
+  }, []);
+  const requestOptions = {
+    method: "POST",
+    headers: { Authorization: `${token}` },
+  };
+
+  const handleDownload = (itemId) => {
+    const item = data.find((item) => item.cid === itemId);
+    if (item) {
+      console.log(item.cid);
+      const downloadUrl = `http://${item.cid}.ipfs.w3s.link`;
+      window.open(downloadUrl, "_blank");
+    }
+  };
+
+  // if (!data) {
+  //   return <div>Loading...</div>;
+  // }
   // const [links, setLinks] = useState([]);
   // const token = localStorage.getItem("token");
 
@@ -41,33 +63,37 @@ function DownloadTable() {
 
   return (
     <div>
-      {console.log(data)}
-      <div>{data._id}</div>
-      {/* {links.map((link, index) => (
-        <div key={index._id}>
-          <a href={link}>{link}</a>
-        </div>
-      ))} */}
-      {/* <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>File Name</th>
-            <th>File Size</th>
-            <th>Select</th>
-          </tr>
-        </thead>
-        <tbody>
-          {downloadArray.map((data) => {
-            return (
-              <tr>
-                <td>{data.fname}</td>
-                <td>{data.fsize}</td>
-                <td>{data.select}</td>
+      {loading ? (
+        <img src={loadingGif} alt="Loading" />
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((item) => (
+              <tr key={item._id}>
+                <Row style={{ marginBottom: "10px", display: "flex" }}>
+                  <Col lg="10">
+                    <td>{item.name}</td>
+                  </Col>
+
+                  <Col lg="2" className="d-flex justify-content-end">
+                    <button
+                      onClick={() => handleDownload(item.cid)}
+                      className="download_file_btn"
+                    >
+                      <FontAwesomeIcon icon={faDownload} />
+                    </button>
+                  </Col>
+                </Row>
               </tr>
-            );
-          })}
-        </tbody>
-      </Table> */}
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 }

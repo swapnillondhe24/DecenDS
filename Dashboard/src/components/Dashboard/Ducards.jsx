@@ -7,6 +7,8 @@ import Col from "react-bootstrap/Col";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import DownloadTable from "./DownloadTable";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUpload } from "@fortawesome/free-solid-svg-icons";
 
 function Ducards() {
   const [showUpload, setShowUpload] = useState(false);
@@ -32,11 +34,14 @@ function Ducards() {
     formData.append("file", file);
     formData.append("filename", file.name);
     try {
-      const response = await fetch("https://mereor.serveo.net/upload_file", {
-        method: "POST",
-        body: formData,
-        headers: { Authorization: `${token}` },
-      });
+      const response = await fetch(
+        "https://df48-106-66-29-78.ngrok-free.app/upload_file",
+        {
+          method: "POST",
+          body: formData,
+          headers: { Authorization: `${token}` },
+        }
+      );
       console.log(formData);
       const data = await response.json();
 
@@ -99,8 +104,13 @@ function Ducards() {
         <Modal.Body>
           <form>
             <input type="file" onChange={handleFileChange} />
-            <button onClick={handleUploadClick} disabled={!file}>
+            <button
+              onClick={handleUploadClick}
+              disabled={!file}
+              style={{ border: "none", borderRadius: "10px" }}
+            >
               Upload File
+              <FontAwesomeIcon icon={faUpload} />
             </button>
           </form>
           {message && <p>{message}</p>}
@@ -121,7 +131,7 @@ function Ducards() {
         </Modal.Body>
         <Modal.Footer>
           {/* <Button variant="secondary" onClick={handleDownloadClick}> */}
-          <Button variant="secondary">Download</Button>
+          {/* <Button variant="secondary">Download</Button> */}
           {/* {fileUrl && (
             <a href={fileUrl} download>
               Click here to download the file
