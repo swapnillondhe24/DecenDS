@@ -20,7 +20,7 @@ function Signin() {
     console.log(data);
 
     const response = await fetch(
-      "https://df48-106-66-29-78.ngrok-free.app/login",
+      "http://127.0.0.1:5000/login",
       {
         method: "POST",
         headers: {

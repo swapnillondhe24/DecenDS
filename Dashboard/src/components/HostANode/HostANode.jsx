@@ -13,7 +13,7 @@ function HostANode() {
 
   const token = localStorage.getItem("token");
   useEffect(() => {
-    fetch("https://df48-106-66-29-78.ngrok-free.app/dashboard", requestOptions)
+    fetch("http://127.0.0.1:5000/dashboard", requestOptions)
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error(error));

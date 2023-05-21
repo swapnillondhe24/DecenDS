@@ -35,7 +35,7 @@ function Ducards() {
     formData.append("filename", file.name);
     try {
       const response = await fetch(
-        "https://df48-106-66-29-78.ngrok-free.app/upload_file",
+        "http://127.0.0.1:5000/upload_file",
         {
           method: "POST",
           body: formData,

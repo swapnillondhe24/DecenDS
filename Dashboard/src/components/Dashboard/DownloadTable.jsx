@@ -14,7 +14,7 @@ function DownloadTable() {
 
   useEffect(() => {
     fetch(
-      "https://df48-106-66-29-78.ngrok-free.app/get_file_list",
+      "http://127.0.0.1:5000/get_file_list",
       requestOptions
     )
       .then((response) => response.json())
