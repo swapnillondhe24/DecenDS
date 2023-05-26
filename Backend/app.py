@@ -12,6 +12,10 @@ from flask_cors import CORS
 import random
 from Web3_storageAPI.rest import REST_WEB3
 from dotenv import load_dotenv
+from flask import Flask, render_template, request
+from flask_mail import Mail, Message
+
+
 load_dotenv()
 
 
@@ -27,6 +31,18 @@ client = MongoClient(uri)
 db = client['DecenDS']
 users = db['DecenDS_users']
 app.config['SECRET_KEY'] = secret
+
+
+
+
+
+app.config['MAIL_SERVER'] = 'smtp.titan.email'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = 'noreply@decends.live'
+app.config['MAIL_PASSWORD'] = '!DecenDS@2023'
+
+mail = Mail(app)
 
 
 def token_required(f):
@@ -199,8 +215,85 @@ def download_file(current_user):
     except Exception as e:
         print("Error", e)
         return jsonify({'message': 'Invalid Credentials'}), 401
+    
+
+@app.route('/send_reset_email', methods=['POST'])
+def send_reset_email():
+    email = request.json['email']
+    # print(email)
+
+    # Generate a random OTP (6 digits)
+    otp = ''.join(str(random.randint(0, 9)) for _ in range(6))
+
+    try:
+        users.find_one({'email': email})
+    except:
+        return {"status":"failure","message":'Email not found, Please register first'}
+
+    users.update_one(
+            {'email': email},
+            {'$set': {'otp': otp}}
+        )
+    # Create the email message
+
+    message = Message(subject='Password Reset')
+    message.sender = app.config['MAIL_USERNAME']
+    message.recipients = [email]
+    message.body = f"Your password reset OTP is: {otp}"
+
+    try:
+        # Send the email
+        mail.send(message)
+        return {"status":"success","message":'Email sent successfully'}
+    
+    except Exception as e:
+        print("Error", e)
+        return {"status":"failure","message":'Unable to send otp at this time, Please try again later'}
+    
 
 
+@app.route('/verify_otp', methods=['POST'])
+def verify_otp():
+
+    try:
+        email = request.json['email']
+    except:
+        return {"status":"failure","message":'Email not found'}
+    
+    
+    try:
+        otp = str(request.json['otp'])
+    except:
+        return {"status":"failure","message":'OTP not found'}
+
+    
+    try:
+        password = request.json['password']
+    except:
+        return {"status":"failure","message":'Password not found'}
+    
+
+    try:
+        user_otp = str(users.find_one({'email': email})['otp'])
+    except:
+        return {"status":"failure","message":'User email or username incorrect or does not exist'}
+
+    hashed_password = generate_password_hash(password, method='sha256')
+
+    if otp == user_otp:
+
+        users.update_one(
+            {'email': email},
+            {'$unset': {'otp': ''}}
+        )
+        users.update_one(
+            {'email': email},
+            {'$set': {'password': hashed_password}}
+        )
+
+        return {"status":"success","message":'OTP verified successfully'}
+    else:
+        return {"status":"failure","message":'OTP verification failed'}
 
 
 
@@ -260,6 +353,9 @@ def active_time(current_user):
 #         return jsonify({'message': 'Missing peerId field in request body'})
 
 # _id type name cid
+
+
+# Configure Flask-Mail settings
 
 
 

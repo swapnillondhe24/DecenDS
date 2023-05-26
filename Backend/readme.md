@@ -337,3 +337,98 @@ if Internal Server Error -
 
 
 }
+
+
+
+
+# POST /send_reset_email
+
+payload - 
+{
+    "email": "<User Email>"
+}
+
+
+if email do not exist : 
+{"status":"failure","message":'Email not found, Please register first'}
+
+if mail sending failed :
+"status":"failure","message":'Unable to send otp at this time, Please try again later'}
+
+
+if mail sending success : 
+{"status":"success","message":'Email sent successfully'}
+
+
+
+# POST /verify_otp
+
+payload - 
+{
+  "email":"<email>",
+  "otp":"<otp>",
+  "password":"<password>"
+}
+
+
+if email do not exist in request : 
+
+{
+
+    "status":"failure",
+
+    "message":'Email not found'
+    
+
+}
+
+if email do not exist in database  : 
+
+{
+
+    "status":"failure",
+
+    "message":'User email or username incorrect or does not exist'
+    
+
+}
+
+if otp do not exist in request : 
+
+{
+
+    "status":"failure",
+
+    "message":'otp not found'
+    
+
+}
+
+if password do not exist in request : 
+
+{
+
+    "status":"failure",
+
+    "message":'password not found'
+    
+
+}
+
+
+if OTP Auth success :
+
+{
+    "status":"Passed",
+    "Message":"OTP verification successfully"
+}
+
+if OTP Auth Failute :
+
+{
+    "status":"Passed",
+    "Message":"OTP verification Failed"
+}
+
+
+
