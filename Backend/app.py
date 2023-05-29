@@ -78,7 +78,7 @@ def register():
         return jsonify({'message': 'Username already exists'}), 400
     
     hashed_password = generate_password_hash(data['password'], method='sha256')
-    user = {'username': data['username'], 'password': hashed_password,'email': data['email'], 'peerId': peer_id,"storageRented": 0,"activeTime": 0}
+    user = {'username': data['username'], 'password': hashed_password,'email': data['email'], 'peerId': peer_id,"storageRented": 0,"activeTime": 0,"files": []}
     users.insert_one(user)
     return jsonify({'message': 'User registered successfully'})
 
@@ -131,10 +131,16 @@ def upload_file(current_user):
     # data.save(f'./files/{filename}')
     # uploa dto IPFS and save hash in DB
     ret = web3.addFileToIPFS(data, filename)
+
+    cid = ret['cid']
+
+    users.update_one(
+            {'_id': ObjectId(current_user['_id'])},
+            {'$push': {'files': cid}}
+        )
     
     return jsonify({
         'message': 'File uploaded successfully',
-        'web3': ret
     })
 
 
@@ -187,16 +193,19 @@ def dashboard(current_user):
 @app.route('/get_file_list', methods=['POST'])
 @token_required
 def get_file_list(current_user):
+    files = current_user['files']
+    # print("files: ",files)
     try:
         temp_ret = web3.getAllFiles()
         ret = []
         for i in temp_ret:
-            ret.append({
+            if i['cid'] in files:
+                ret.append({
                 "_id": i['_id'],
                 "name": i['name'],
                 "cid": i['cid'],
                 "type": i['type']
-            })
+             })
             
         return ret
     except Exception as e:
@@ -204,17 +213,17 @@ def get_file_list(current_user):
         return jsonify({'message': 'Invalid Credentials'}), 401
 
 
-@app.route('/download_file', methods=['POST'])
-@token_required
-def download_file(current_user):
-    try:
-        cid = request.json.get('cid')
-        strng = "https://"+cid+".ipfs.w3s.link/"
+# @app.route('/download_file', methods=['POST'])
+# @token_required
+# def download_file(current_user):
+#     try:
+#         cid = request.json.get('cid')
+#         strng = "https://"+cid+".ipfs.w3s.link/"
 
-        return {"url": strng}
-    except Exception as e:
-        print("Error", e)
-        return jsonify({'message': 'Invalid Credentials'}), 401
+#         return {"url": strng}
+#     except Exception as e:
+#         print("Error", e)
+#         return jsonify({'message': 'Invalid Credentials'}), 401
     
 
 @app.route('/send_reset_email', methods=['POST'])
