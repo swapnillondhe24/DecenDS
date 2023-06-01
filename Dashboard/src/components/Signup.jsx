@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./Signin.css";
 import logo from "../images/logo2.png";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
+// import { PasswordContext } from "./PasswordContext";
 
 function Signup() {
   const [data, setData] = useState({
@@ -12,6 +13,7 @@ function Signup() {
     cpassword: "",
   });
   const [errors, setErrors] = useState([]);
+  // const { updatePassword } = useContext(PasswordContext);
 
   const navigate = useNavigate();
 
@@ -21,8 +23,10 @@ function Signup() {
   };
 
   const validatePassword = (password) => {
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-    return passwordRegex.test(password);
+    // const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    const regex_new =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#$%^&+=])(?=.*[a-zA-Z0-9]).{8,}$/;
+    return regex_new.test(password);
   };
 
   const handleFormSubmit = (event) => {
@@ -41,13 +45,16 @@ function Signup() {
       );
       console.log("pwd invalid");
     }
-    if (data.password !== data.cPassword) {
+    if (data.password !== data.cpassword) {
       errors.push("Passwords do not match");
       console.log("passwords dont match");
     }
 
+    console.log(data.password);
+    console.log(data.cpassword);
+
     if (errors.length === 0) {
-      fetch("http://127.0.0.1:5000/register", {
+      fetch(`${process.env.REACT_APP_BACKEND_URL}/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -56,7 +63,7 @@ function Signup() {
       })
         .then((response) => {
           if (response.ok) {
-            navigate("/dashboard");
+            navigate("/signin");
           } else {
             console.log("Error registering user.");
           }
@@ -67,6 +74,7 @@ function Signup() {
     } else {
       setErrors(errors);
     }
+    // updatePassword(data.password);
   };
 
   return (

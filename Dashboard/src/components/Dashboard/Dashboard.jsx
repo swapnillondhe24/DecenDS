@@ -11,14 +11,14 @@ function Dashboard() {
 
   const token = localStorage.getItem("token");
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/dashboard", requestOptions)
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/dashboard`, requestOptions)
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error(error));
   }, []);
   if (!token) {
     // Redirect to login if the user is not authenticated
-    window.location.href = "/login";
+    window.location.href = "/signin";
     return null;
   }
   const requestOptions = {

@@ -10,14 +10,15 @@
 }
 
 .login-box {
-  margin-top: 3rem;
+  margin-top: 2rem;
   background-color: #9191e9;
-  margin-left: 25%;
+  margin-left: 30%;
   margin-right: 40%;
-  width: 50%;
-  border-radius: 36px;
+  width: 40%;
+  /* border-radius: 36px; */
   padding: 0.5rem;
   margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .form-head {
@@ -25,8 +26,8 @@
   font-weight: 600;
   text-align: left;
   margin-left: 3rem;
-  margin-top: 3rem;
-  margin-bottom: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
   /* align-items: flex-start; */
 }
 
@@ -48,8 +49,8 @@
 .form-ip {
   width: 90%;
   background: #fff;
-  border: 1px solid #d9d9d9;
-  border-radius: 10px;
+  border: 0px solid #d9d9d9;
+  border-radius: 5px;
   color: #4c4c4e;
   height: 50px;
   font-size: 14px;
@@ -59,27 +60,31 @@
 .form-label {
   font-size: 16px;
   font-weight: 400;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.1rem;
 }
 
 .form-btn {
-  margin-top: 3rem;
+  margin-top: 1rem;
   background: #541b81;
-  border-radius: 30px;
+  border-radius: 5px;
+  border: 0px;
   height: 55px;
-  width: 84%;
+  width: 82%;
   color: #fff;
   font-weight: 400;
   margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .Forgot {
   font-weight: 400;
+  color: #656565;
 }
 
 .already {
   font-weight: 400;
   padding-bottom: 2rem;
+  color: #656565;
 }
 
 input {

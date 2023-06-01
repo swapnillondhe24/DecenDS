@@ -4,19 +4,20 @@
 }
 
 .navbar {
-  background-color: #9191e9;
+  background-color: #e1e2ef;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .nav-option {
   font-weight: 600;
   font-size: 1rem;
-  color: #fff8f8;
+  color: #541b81 !important;
   margin: 0.5rem;
 }
 .nav-item {
   text-decoration: none !important;
   font-size: 1rem;
-  color: #fff8f8 !important;
+  color: #541b81 !important;
 }
 .nav-btn {
   background-color: #541b81;
@@ -28,6 +29,7 @@
   height: 2.5rem;
   align-items: center;
   padding-top: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .regLink {
@@ -49,5 +51,17 @@
 
     width: 4rem;
     height: 2rem;
+  }
+}
+
+@media screen and (max-width: 599px) {
+  .nav-btn {
+    font-size: 10px;
+
+    width: 3rem;
+    height: 2rem;
+  }
+  .logo-img {
+    height: 40px;
   }
 }
