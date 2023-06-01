@@ -10,7 +10,6 @@ import Profile from "./components/Profile";
 import HostANode from "./components/HostANode/HostANode";
 import { PasswordProvider } from "./components/PasswordContext";
 import CreateNewPassword from "./components/CreateNewPassword";
-import ResetPassword from "./components/ResetPassword";
 
 function App() {
   return (
@@ -23,7 +22,7 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/host" element={<HostANode />} />
-            <Route path="/reset" element={<ResetPassword />} />
+            <Route path="/reset" element={<Reset />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/newpassword" element={<CreateNewPassword />} />
             <Route path="/documentation" element={<Documentation />} />

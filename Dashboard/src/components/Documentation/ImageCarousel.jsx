@@ -15,16 +15,71 @@ function ImageCarousel() {
   return (
     <div className="ImageCarousel">
       <Row>
-        <Col lg={3}>
-          <img src={start2} alt="login screen" className="setup-image" />
+        <Col lg={2} md={6} sm={12}>
+          <div className="carousel-inner">
+            <div className="carousel-inner-image">
+              <img src={start2} alt="login screen" className="setup-image" />
+            </div>
+
+            <div className="carousel-inner-text">
+              <span>Text</span>
+            </div>
+          </div>
         </Col>
-        <Col lg={9}>
-          <span>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam
-            fuga atque dolore doloremque cum odio in error corrupti eligendi
-            quia praesentium dicta veniam perspiciatis culpa, a totam facere
-            rem. Ipsum?
-          </span>
+        <Col lg={2} md={6} sm={12}>
+          <div className="carousel-inner">
+            <div className="carousel-inner-image">
+              <img src={start3} alt="login screen" className="setup-image" />
+            </div>
+
+            <div className="carousel-inner-text">
+              <span>Text</span>
+            </div>
+          </div>
+        </Col>
+        <Col lg={2} md={6} sm={12}>
+          <div className="carousel-inner">
+            <div className="carousel-inner-image">
+              <img src={start4} alt="login screen" className="setup-image" />
+            </div>
+
+            <div className="carousel-inner-text">
+              <span>Text</span>
+            </div>
+          </div>
+        </Col>
+        <Col lg={2} md={6} sm={12}>
+          <div className="carousel-inner">
+            <div className="carousel-inner-image">
+              <img src={start5a} alt="login screen" className="setup-image" />
+            </div>
+
+            <div className="carousel-inner-text">
+              <span>Text</span>
+            </div>
+          </div>
+        </Col>
+        <Col lg={2} md={6} sm={12}>
+          <div className="carousel-inner">
+            <div className="carousel-inner-image">
+              <img src={start5b} alt="login screen" className="setup-image" />
+            </div>
+
+            <div className="carousel-inner-text">
+              <span>Text</span>
+            </div>
+          </div>
+        </Col>
+        <Col lg={2} md={6} sm={12}>
+          <div className="carousel-inner">
+            <div className="carousel-inner-image">
+              <img src={start6} alt="login screen" className="setup-image" />
+            </div>
+
+            <div className="carousel-inner-text">
+              <span>Text</span>
+            </div>
+          </div>
         </Col>
       </Row>
     </div>
