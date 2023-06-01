@@ -82,7 +82,7 @@ function Header(props) {
             <Navbar.Text
               className="nav-option"
               style={{
-                color: "#fff8f8",
+                color: "#541b81",
                 fontFamily: "PT Sans Caption",
                 fontWeight: 400,
               }}
@@ -105,74 +105,64 @@ function Header(props) {
             </Navbar.Text>
 
             <NavDropdown
-              title={
-                <div className="pull-left ">
-                  {/* <img
-                    className="thumbnail-image"
-                    src={user}
-                    alt="user"
-                    style={{ width: "48spx", height: "48px" }}
-                  /> */}
-                  <FontAwesomeIcon icon={faUser} size="2xl" />
-                </div>
-              }
-              popperConfig={popperConfig}
+              title={<FontAwesomeIcon icon={faUser} size="2xl" />}
+              className="pull-left"
               id="basic-nav-dropdown"
+              align="end"
             >
-              <NavDropdown.Item>
-                Peer Id :
-                <ShortenText text={props.peerId} maxLength={5} />
-                {!copyStatus ? (
-                  <button
-                    onClick={handleCopyText}
-                    style={{ border: "none", backgroundColor: "#fff" }}
-                  >
-                    <FontAwesomeIcon icon={faClipboard} />
-                  </button>
-                ) : copyStatus === "Copied" ? (
-                  <FontAwesomeIcon icon={faCheck} />
-                ) : (
-                  <FontAwesomeIcon icon={faXmark} />
-                )}
-              </NavDropdown.Item>
-              <NavDropdown.Item>
-                Coins Earned : {props.coins_earned}
-              </NavDropdown.Item>
+              <div className="position-absolute start-0 bg-white border-2 border-black width-auto">
+                <NavDropdown.Item>
+                  Peer Id :
+                  <ShortenText text={props.peerId} maxLength={5} />
+                  {!copyStatus ? (
+                    <button onClick={handleCopyText}>
+                      <FontAwesomeIcon icon={faClipboard} />
+                    </button>
+                  ) : copyStatus === "Copied" ? (
+                    <FontAwesomeIcon icon={faCheck} />
+                  ) : (
+                    <FontAwesomeIcon icon={faXmark} />
+                  )}
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  Coins Earned : {props.coins_earned}
+                </NavDropdown.Item>
 
-              <NavDropdown.Item>
-                <Link
-                  to="/profile"
-                  style={{ textDecoration: "none", color: "#541b81" }}
-                >
-                  View Profile
-                </Link>
-              </NavDropdown.Item>
-              <NavDropdown.Item>
-                <Link
-                  to="/host"
-                  style={{ textDecoration: "none", color: "#541b81" }}
-                >
-                  Host a Node
-                </Link>
-              </NavDropdown.Item>
-              <NavDropdown.Item>
-                <button
-                  onClick={handleLogout}
-                  style={{
-                    backgroundColor: "#fff",
-                    border: "none",
-                    color: "#541b81",
-                    marginLeft: "0",
-                  }}
-                >
-                  Logout
-                </button>
-              </NavDropdown.Item>
+                <NavDropdown.Item>
+                  <Link
+                    to="/profile"
+                    style={{ textDecoration: "none", color: "#541b81" }}
+                  >
+                    View Profile
+                  </Link>
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  <Link
+                    to="/host"
+                    style={{ textDecoration: "none", color: "#541b81" }}
+                  >
+                    Host a Node
+                  </Link>
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  <button
+                    onClick={handleLogout}
+                    style={{
+                      backgroundColor: "#fff",
+                      border: "none",
+                      color: "#541b81",
+                      marginLeft: "0",
+                    }}
+                  >
+                    Logout
+                  </button>
+                </NavDropdown.Item>
+              </div>
             </NavDropdown>
           </Navbar.Collapse>
         ) : (
-          <Link to="/signup" className="regLink">
-            <div className="nav-btn">Sign Up</div>
+          <Link to="/signin" className="regLink">
+            <div className="nav-btn">Login</div>
           </Link>
         )}
 

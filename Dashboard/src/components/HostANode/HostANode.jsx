@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import TermsAndCondition from "./TermsAndCondition";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faNoteSticky } from "@fortawesome/free-solid-svg-icons";
+// import { faCoinVertical } from "@fortawesome/free-solid-svg-icons";
+import Row from "react-bootstrap/Row";
 
 function HostANode() {
   const [isChecked, setIsChecked] = useState(false);
@@ -13,7 +15,7 @@ function HostANode() {
 
   const token = localStorage.getItem("token");
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/dashboard", requestOptions)
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/dashboard`, requestOptions)
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error(error));
@@ -29,15 +31,18 @@ function HostANode() {
   return (
     <div className="host-a-node">
       <Header />
-      <div className="host-a-node-bar">
-        <FontAwesomeIcon icon={faNoteSticky} size="2xl" />
-        <span style={{ marginLeft: "10px" }}>Peer ID : {data?.peerId}</span>
-      </div>
-      <div className="host-a-node-bar">
-        <FontAwesomeIcon icon={faNoteSticky} size="2xl" />
+      <div className="container host-a-node-bar" style={{ display: "flex" }}>
+        <div className="host-a-node-bar-content" style={{ width: "50%" }}>
+          <FontAwesomeIcon icon={faNoteSticky} size="2xl" />
+          <span style={{ marginLeft: "10px" }}>Peer ID : {data?.peerId}</span>
+        </div>
+        <div className="host-a-node-bar-content" style={{ width: "50%" }}>
+          <FontAwesomeIcon icon={faNoteSticky} size="2xl" />
 
-        <span>Coins Earned : {data?.coins_earned}</span>
+          <span>Coins Earned : {data?.coins_earned}</span>
+        </div>
       </div>
+
       <div className="tandc">
         <div className="tandc-content">
           <TermsAndCondition />

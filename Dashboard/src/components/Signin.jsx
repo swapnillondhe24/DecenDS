@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./Signin.css";
 import logo from "../images/logo2.png";
 import { Link } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { PasswordContext } from "./PasswordContext";
 
 function Signin() {
   const [data, setData] = useState({
     username: "",
     password: "",
   });
+  const { updatePassword } = useContext(PasswordContext);
 
   // const myVariable = process.env.ENDPOINT;
   // console.log(myVariable);
@@ -19,17 +21,14 @@ function Signin() {
     e.preventDefault();
     console.log(data);
 
-    const response = await fetch(
-      "http://127.0.0.1:5000/login",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          // "Authorization" : "",
-        },
-        body: JSON.stringify(data),
-      }
-    );
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        // "Authorization" : "",
+      },
+      body: JSON.stringify(data),
+    });
     if (response.ok) {
       const data = await response.json();
       localStorage.setItem("token", data.token);
@@ -37,6 +36,8 @@ function Signin() {
     } else {
       console.error(data.message);
     }
+
+    updatePassword(data.password);
   };
 
   // console.log(`${process.env.ENDPOINT}/login`);

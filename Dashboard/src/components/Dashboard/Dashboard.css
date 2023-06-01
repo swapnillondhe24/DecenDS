@@ -1,4 +1,5 @@
 .dashboard {
+  /* background-color: #e1e2ef; */
   background-image: url("../../images/bg2.png");
 }
 
@@ -14,10 +15,11 @@
   align-items: center;
   padding-left: 50px;
   color: #f5f5f5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .dashcards {
-  border: 5px solid #f5f5f5;
+  /* border: 0px solid #9191e9; */
   border-radius: 10px;
   /* display: flex; */
   align-items: center;
@@ -25,6 +27,8 @@
   height: 200px;
   color: #ffffff;
   padding-top: 1rem;
+  /* background-color: #9191e9; */
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
 }
 
 .dashboard-cards {
@@ -47,6 +51,7 @@
   border-radius: 10px;
   height: 150px;
   padding-top: 1.5rem;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
 }
 
 .downup {
@@ -69,4 +74,21 @@
   border-radius: 5px;
   cursor: pointer;
   background-color: #fff;
+}
+
+@media screen and (min-width: 600px) and (max-width: 992px) {
+  .dashcards {
+    margin-bottom: 2rem;
+  }
+  .downup-card {
+    margin-bottom: 2rem;
+  }
+}
+@media screen and (max-width: 599px) {
+  .dashcards {
+    margin-bottom: 2rem;
+  }
+  .downup-card {
+    margin-bottom: 2rem;
+  }
 }

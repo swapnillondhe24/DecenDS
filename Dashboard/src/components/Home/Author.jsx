@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
 import { Card, Row, Col } from "react-bootstrap";
 import "./Home.css";
 import bg3 from "../../images/bg3.png";
@@ -14,62 +15,39 @@ function Author() {
       <div className="author-cards">
         <div className="features-head">Our Authors</div>
         <div className="author-row container">
-          <div className="card">
-            <img
-              src={ayushi}
-              alt="author1"
-              style={{
-                width: "100%",
-                height: "100%",
-                borderRadius: "50%",
-                boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
-              }}
-            />
-            <div className="authorName">Ayushi Nandeshwar</div>
-            <div className="authorinfo">Frontend Developer</div>
-          </div>
-          <div className="card">
-            <img
-              src={shivu}
-              alt="author1"
-              style={{
-                width: "100%",
-                height: "100%",
-                borderRadius: "50%",
-                boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
-              }}
-            />
-            <div className="authorName">Shivyani Rathod</div>
-            <div className="authorinfo">Designer and Frontend Developer</div>
-          </div>
-          <div className="card">
-            <img
-              src={sappu}
-              alt="author1"
-              style={{
-                width: "100%",
-                height: "100%",
-                borderRadius: "50%",
-                boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
-              }}
-            />
-            <div className="authorName">Swapnil Londhe</div>
-            <div className="authorinfo">Backend Developer</div>
-          </div>
-          <div className="card">
-            <img
-              src={yashaaa}
-              alt="author1"
-              style={{
-                width: "100%",
-                height: "100%",
-                borderRadius: "50%",
-                boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
-              }}
-            />
-            <div className="authorName">Yash Deshmukh</div>
-            <div className="authorinfo">Android Developer</div>
-          </div>
+          <Container>
+            <Row>
+              <Col xs={12} md={6} lg={3}>
+                <div className="card mx-auto">
+                  <img src={ayushi} alt="author1" className="author-image" />
+                  <div className="authorName">Ayushi Nandeshwar</div>
+                  <div className="authorinfo">Frontend Developer</div>
+                </div>
+              </Col>
+              <Col xs={12} md={6} lg={3}>
+                <div className="card mx-auto">
+                  <img src={shivu} alt="author1" className="author-image" />
+                  <div className="authorName">Shivyani Rathod</div>
+                  <div className="authorinfo">Figma Designer </div>
+                </div>
+              </Col>
+              <Col xs={12} md={6} lg={3}>
+                <div className="card mx-auto">
+                  <img src={sappu} alt="author1" className="author-image" />
+                  <div className="authorName">Swapnil Londhe</div>
+                  <div className="authorinfo">Backend Developer</div>
+                </div>
+              </Col>
+              <Col xs={12} md={6} lg={3}>
+                <div className="card mx-auto">
+                  <img src={yashaaa} alt="author1" className="author-image" />
+                  <div className="authorName">Yash Deshmukh</div>
+                  <div className="authorinfo">Android Developer</div>
+                </div>
+              </Col>
+            </Row>
+          </Container>
+
           {/* <Row>
             <Col>
               <Card>
