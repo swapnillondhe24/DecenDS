@@ -93,5 +93,13 @@ class REST_WEB3():
         
 if __name__ == '__main__':
     rest = REST_WEB3()
-    c = rest.getAllFiles()
-    print(c)
+    res = []
+    files =  ['bafkreigflrz6mblkeap7ntq6hqgcdves77erydzuvetdtxsodz3sapfr6q', 'bafkreif5w3d7mrfnvwpk2csox2srp5x4727y3gfyx7obrqfgr6mzmt3goa']
+    for file in files:
+        res.append(rest.getUserUploads(file))
+    print("\n\n\n")
+    for re in res:
+        for r in re:
+            parsed_json = json.loads(str(r))
+            pretty_json = json.dumps(parsed_json, indent=4)
+            print(pretty_json)
