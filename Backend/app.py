@@ -23,6 +23,7 @@ web3 = REST_WEB3()
 
 app = Flask(__name__)
 cors = CORS(app,resources={r"/*": {"origins": "*"}})
+cors = CORS(app,resources={r"/api/*": {"origins": "*"}})
 
 uri = os.getenv("MONGO_URI")
 secret = os.getenv("SECRET_KEY")
@@ -277,7 +278,7 @@ def verify_otp():
 
     
     try:
-        password = request.json['password']
+        password = request.json['newPassword']
     except:
         return {"status":"failure","message":'Password not found'}
     

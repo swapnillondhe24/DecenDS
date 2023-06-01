@@ -367,7 +367,7 @@ payload -
 {
   "email":"<email>",
   "otp":"<otp>",
-  "password":"<password>"
+  "newPassword":"<password>"
 }
 
 
