@@ -32,9 +32,6 @@ function Home() {
 
       <div className="jumbo">
         <img className="d-block w-100 image-jumbo" src={c1} alt="First slide" />
-        <Link to="/signup" className="regLink">
-          <Button className="btn">Sign Up</Button>
-        </Link>
       </div>
 
       <Features />

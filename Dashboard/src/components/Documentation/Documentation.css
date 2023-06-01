@@ -20,3 +20,14 @@
   justify-content: center;
   flex-direction: column;
 }
+@media screen and (min-width: 600px) and (max-width: 992px) {
+  .carousel-inner {
+    margin-left: 20%;
+  }
+}
+
+@media screen and (max-width: 599px) {
+  .carousel-inner {
+    margin-left: 50%;
+  }
+}

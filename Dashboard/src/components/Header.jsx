@@ -130,14 +130,6 @@ function Header(props) {
 
                 <NavDropdown.Item>
                   <Link
-                    to="/profile"
-                    style={{ textDecoration: "none", color: "#541b81" }}
-                  >
-                    View Profile
-                  </Link>
-                </NavDropdown.Item>
-                <NavDropdown.Item>
-                  <Link
                     to="/host"
                     style={{ textDecoration: "none", color: "#541b81" }}
                   >

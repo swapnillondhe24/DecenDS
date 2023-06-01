@@ -47,15 +47,6 @@ function HostANode() {
         <div className="tandc-content">
           <TermsAndCondition />
         </div>
-        <input
-          type="checkbox"
-          checked={isChecked}
-          onChange={handleCheckboxChange}
-          class="tandc-checkbox"
-          name="tandc"
-          value="tandc"
-        />
-        <label for="vehicle1"> I have read all the Terms and Conditions</label>
       </div>
 
       <div className="tandc-details">

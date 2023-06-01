@@ -90,3 +90,51 @@
 input {
   padding: 0px 0px;
 }
+
+@media screen and (min-width: 600px) and (max-width: 992px) {
+  .extra {
+    height: 300px !important;
+  }
+  .login-box {
+    margin-left: 30%;
+    margin-right: 30%;
+    width: 50%;
+    /* border-radius: 36px; */
+  }
+  .form-ip {
+    width: 100%;
+
+    padding: 1rem;
+  }
+  .form-grp {
+    margin-left: 0;
+  }
+  .form-btn {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 599px) {
+  .extra {
+    height: 300px !important;
+  }
+  .login-box {
+    margin-left: 12%;
+    margin-right: 10%;
+    width: 80%;
+    /* border-radius: 36px; */
+  }
+  .form-ip {
+    width: 100%;
+
+    padding: 1rem;
+  }
+  .form-grp {
+    margin-left: 0;
+  }
+  .form-btn {
+    margin-left: 0;
+    width: 100%;
+  }
+}

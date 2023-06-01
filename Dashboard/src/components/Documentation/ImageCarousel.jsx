@@ -15,7 +15,7 @@ function ImageCarousel() {
   return (
     <div className="ImageCarousel">
       <Row>
-        <Col lg={2} md={6} sm={12}>
+        <Col lg={2} md={4} sm={6}>
           <div className="carousel-inner">
             <div className="carousel-inner-image">
               <img src={start2} alt="login screen" className="setup-image" />
@@ -26,7 +26,7 @@ function ImageCarousel() {
             </div>
           </div>
         </Col>
-        <Col lg={2} md={6} sm={12}>
+        <Col lg={2} md={4} sm={6}>
           <div className="carousel-inner">
             <div className="carousel-inner-image">
               <img src={start3} alt="login screen" className="setup-image" />
@@ -37,7 +37,7 @@ function ImageCarousel() {
             </div>
           </div>
         </Col>
-        <Col lg={2} md={6} sm={12}>
+        <Col lg={2} md={4} sm={6}>
           <div className="carousel-inner">
             <div className="carousel-inner-image">
               <img src={start4} alt="login screen" className="setup-image" />
@@ -48,7 +48,7 @@ function ImageCarousel() {
             </div>
           </div>
         </Col>
-        <Col lg={2} md={6} sm={12}>
+        <Col lg={2} md={4} sm={6}>
           <div className="carousel-inner">
             <div className="carousel-inner-image">
               <img src={start5a} alt="login screen" className="setup-image" />
@@ -59,7 +59,7 @@ function ImageCarousel() {
             </div>
           </div>
         </Col>
-        <Col lg={2} md={6} sm={12}>
+        <Col lg={2} md={4} sm={6}>
           <div className="carousel-inner">
             <div className="carousel-inner-image">
               <img src={start5b} alt="login screen" className="setup-image" />
@@ -70,7 +70,7 @@ function ImageCarousel() {
             </div>
           </div>
         </Col>
-        <Col lg={2} md={6} sm={12}>
+        <Col lg={2} md={4} sm={6}>
           <div className="carousel-inner">
             <div className="carousel-inner-image">
               <img src={start6} alt="login screen" className="setup-image" />

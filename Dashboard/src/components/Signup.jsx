@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import "./Signin.css";
 import logo from "../images/logo2.png";
 import { Link, useNavigate } from "react-router-dom";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Alert } from "react-bootstrap";
 // import { PasswordContext } from "./PasswordContext";
 
 function Signup() {
@@ -65,10 +65,12 @@ function Signup() {
           if (response.ok) {
             navigate("/signin");
           } else {
+            throw new Error("Error registering user.");
             console.log("Error registering user.");
           }
         })
         .catch((error) => {
+          setErrors([error.message]);
           console.error("Error registering user:", error);
         });
     } else {
@@ -140,12 +142,13 @@ function Signup() {
               onChange={(e) => setData({ ...data, cpassword: e.target.value })}
             />
           </div>
-          <div className=" check">
-            <label>
-              <input type="checkbox" /> I agree to Terms of Service and Privacy
-              Policy
-            </label>
-          </div>
+          {errors.length > 0 && (
+            <Alert style={{ marginTop: "10px", marginBottom: "5px" }}>
+              {errors.map((error, index) => (
+                <p key={index}>{error}</p>
+              ))}
+            </Alert>
+          )}
           <button type="submit" className="form-btn" onClick={handleFormSubmit}>
             Submit
           </button>
@@ -157,6 +160,7 @@ function Signup() {
           Login
         </Link>
       </div>
+      <div className="extra"></div>
     </div>
   );
 }

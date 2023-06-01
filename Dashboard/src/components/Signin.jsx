@@ -1,8 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./Signin.css";
 import logo from "../images/logo2.png";
 import { Link } from "react-router-dom";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { PasswordContext } from "./PasswordContext";
 
@@ -11,6 +11,7 @@ function Signin() {
     username: "",
     password: "",
   });
+  const [error, setError] = useState("");
   const { updatePassword } = useContext(PasswordContext);
 
   // const myVariable = process.env.ENDPOINT;
@@ -19,33 +20,36 @@ function Signin() {
   const navigate = useNavigate();
   const store = async (e) => {
     e.preventDefault();
+    setError("");
     console.log(data);
 
-    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        // "Authorization" : "",
-      },
-      body: JSON.stringify(data),
-    });
-    if (response.ok) {
-      const data = await response.json();
-      localStorage.setItem("token", data.token);
-      navigate("/dashboard");
-    } else {
-      console.error(data.message);
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      if (response.ok) {
+        const responseData = await response.json();
+        localStorage.setItem("token", responseData.token);
+        navigate("/dashboard");
+      } else {
+        const errorData = await response.json();
+        setError(errorData.message);
+      }
+    } catch (error) {
+      console.error("Error logging in:", error);
     }
 
     updatePassword(data.password);
   };
-
   // console.log(`${process.env.ENDPOINT}/login`);
-
-  const errors = {
-    uname: "invalid username",
-    pass: "invalid password",
-  };
 
   return (
     <div className="signin">
@@ -85,6 +89,11 @@ function Signin() {
               onChange={(e) => setData({ ...data, password: e.target.value })}
             />
           </div>
+          {error && (
+            <Alert style={{ marginTop: "10px", marginBottom: "5px" }}>
+              {error}
+            </Alert>
+          )}
           <button type="submit" className="form-btn" onClick={store}>
             Submit
           </button>
@@ -101,6 +110,7 @@ function Signin() {
           Need to create an account?
         </Link>
       </div>
+      <div className="extra"></div>
     </div>
   );
 }
