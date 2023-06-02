@@ -160,6 +160,27 @@ def onboarding(current_user):
         return jsonify({'message': 'Missing storageRented field in request body'})
 
 
+@app.route('/rateinout', methods=['POST'])
+@token_required
+def rateinout(current_user):
+    print(request.json)
+    rin = request.json.get('RateIn')
+    rout = request.json.get('RateOut')
+    tin = request.json.get('TotalIn')
+    tout = request.json.get('TotalOut')
+    if rin and rout and tin and tout:
+        try:
+            users.update_one(
+                {'_id': ObjectId(current_user['_id'])},
+                {'$set': {'RateIn': rin,'RateOut': rout,'TotalIn': tin,'TotalOut': tout}}
+            )
+        except Exception as e:
+            print(e)
+            return jsonify({'message': 'Date update failed'}),401
+        return jsonify({'message': 'Data updated successfully'}),200
+    else:
+        return jsonify({'message': 'Date missing'}),400
+
 
 
 @app.route('/dashboard', methods=['POST'])
@@ -170,8 +191,6 @@ def dashboard(current_user):
     except:
         return jsonify({'message': 'User has not been onboarded yet'}), 400
     
-    if not space:
-        return jsonify({'message': 'User has not been onboarded yet'}), 400
     
     try:
         temp_ret = {
@@ -182,7 +201,7 @@ def dashboard(current_user):
     "bandwidth_used": random.randint(4000,10000),
     "data_uploaded": random.randint(4000,10000),
     "data_downloaded": random.randint(4000,10000),
-    "space_used": random.randint(1,int(space-1))
+    "space_used": "0.00 MB"
     }
     except Exception as e:
         print("Error", e)
@@ -286,7 +305,7 @@ def verify_otp():
     try:
         user_otp = str(users.find_one({'email': email})['otp'])
     except:
-        return {"status":"failure","message":'User email or username incorrect or does not exist'}
+        return {"status":"failure","message":'User email or username incorrect or does not exist or OTP is incorrect'}
 
     hashed_password = generate_password_hash(password, method='sha256')
 
