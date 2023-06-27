@@ -198,14 +198,14 @@ def dashboard(current_user):
     "peerId": current_user["peerId"],
     "storage_rented": space,
     "coins_earned": round(random.uniform(0.000, 0.0004) * space, 5),
-    "bandwidth_used": random.randint(4000,10000),
-    "data_uploaded": random.randint(4000,10000),
-    "data_downloaded": random.randint(4000,10000),
-    "space_used": "0.00 MB"
+    "bandwidth_used": round(float(current_user['TotalOut'])%1024,5),
+    "data_uploaded": round(float(current_user['RateOut'])%1024,5),
+    "data_downloaded": round(float(current_user["RateIn"])%1024,5),
+    "space_used": round(float(current_user['TotalOut'])%1024,5)
     }
     except Exception as e:
         print("Error", e)
-        return jsonify({'message': 'Invalid username or PeerID'}), 401
+        return jsonify({'message': 'Invalid username or PeerID',"error_msg":e}), 401
 
     return temp_ret
 
